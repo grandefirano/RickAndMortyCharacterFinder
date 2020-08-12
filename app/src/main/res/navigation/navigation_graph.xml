@@ -9,7 +9,7 @@
         android:id="@+id/listOfCharactersFragment"
         android:name="com.grandefirano.rickandmortycharacterfinder.list.ListOfCharactersFragment"
         android:label="list_of_characters_fragment"
-        tools:layout="@layout/list_of_characters_fragment" >
+        tools:layout="@layout/fragment_list_of_characters" >
         <action
             android:id="@+id/action_listOfCharactersFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.grandefirano.rickandmortycharacterfinder.details.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/details_fragment" >
+        tools:layout="@layout/fragment_details" >
         <argument
             android:name="idOfCharacter"
             app:argType="integer" />

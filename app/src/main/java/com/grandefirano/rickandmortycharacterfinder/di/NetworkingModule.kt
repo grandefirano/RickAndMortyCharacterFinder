@@ -1,7 +1,7 @@
 package com.grandefirano.rickandmortycharacterfinder.di
 
 
-import com.grandefirano.rickandmortycharacterfinder.ApiService
+import com.grandefirano.rickandmortycharacterfinder.network.ApiService
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class NetworkingModule {
 
     @Provides
-    fun provideApi():ApiService{
+    fun provideApi(): ApiService {
        return Retrofit.Builder()
             .baseUrl("https://rickandmortyapi.com/api/")
             .addConverterFactory(MoshiConverterFactory.create())

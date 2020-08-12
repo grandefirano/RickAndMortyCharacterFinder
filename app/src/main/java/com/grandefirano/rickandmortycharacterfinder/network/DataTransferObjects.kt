@@ -1,5 +1,6 @@
-package com.grandefirano.rickandmortycharacterfinder
+package com.grandefirano.rickandmortycharacterfinder.network
 
+import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
@@ -15,7 +16,7 @@ data class NetworkCharacter(
     val type:String,
     val gender:String,
     @Json(name="origin")
-    val originLocation:Location,
+    val originLocation: Location,
     @Json(name="location")
     val presentLocation: Location,
     @Json(name="image")
@@ -28,7 +29,7 @@ fun NetworkCharactersContainer.asDomainModel():List<Character>{
     }
 }
 
-fun NetworkCharacter.asDomainModel():Character{
+fun NetworkCharacter.asDomainModel(): Character {
     return Character(
         id = id,
         name = name,

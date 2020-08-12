@@ -4,16 +4,19 @@
     <data>
         <variable
             name="character"
-            type="com.grandefirano.rickandmortycharacterfinder.Character" />
+            type="com.grandefirano.rickandmortycharacterfinder.data.Character" />
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            characterImage="@{character}"
+            android:layout_width="100dp"
+            android:layout_height="100dp" />
 
         <TextView
             android:text="@{character.name}"

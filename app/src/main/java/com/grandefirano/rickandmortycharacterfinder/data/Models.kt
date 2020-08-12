@@ -1,4 +1,4 @@
-package com.grandefirano.rickandmortycharacterfinder
+package com.grandefirano.rickandmortycharacterfinder.data
 
 data class Character(
     val id: Int,

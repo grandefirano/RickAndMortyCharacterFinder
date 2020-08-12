@@ -5,9 +5,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.grandefirano.rickandmortycharacterfinder.Repository
+import com.grandefirano.rickandmortycharacterfinder.data.Repository
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 class ListOfCharactersViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
@@ -15,7 +14,9 @@ class ListOfCharactersViewModel @ViewModelInject constructor(private val reposit
 
 
     val listOfCharacters = liveData {
+        Log.d(TAG, "livedata emit: ")
         emit(repository.getAllCharacters())
+        
     }
 
 
