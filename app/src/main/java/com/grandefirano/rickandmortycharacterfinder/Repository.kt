@@ -1,15 +1,21 @@
 package com.grandefirano.rickandmortycharacterfinder
 
 import androidx.lifecycle.LiveData
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class Repository(private val apiSevice:ApiService) {
+class Repository @Inject constructor(private val apiSevice:ApiService) {
 
 
-    suspend fun getCharacter(userId:String):List<Character>{
+    suspend fun getAllCharacters():List<Character>{
 
-       return apiSevice.getCharacters().await().asDomainModel()
+       return apiSevice.getListOfCharacters().await().asDomainModel()
+    }
+    suspend fun getCharacter(userId:Int):Character{
+
+        return apiSevice.getCharacter(userId).await().asDomainModel()
     }
 
     suspend fun refreshList(){

@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class NetworkCharacterContainer(val results:List<NetworkCharacter>)
+data class NetworkCharactersContainer(val results:List<NetworkCharacter>)
 
 @JsonClass(generateAdapter = true)
 data class NetworkCharacter(
@@ -22,19 +22,23 @@ data class NetworkCharacter(
     val imageUrl:String
 )
 
-fun NetworkCharacterContainer.asDomainModel():List<Character>{
+fun NetworkCharactersContainer.asDomainModel():List<Character>{
     return results.map {
-        Character(
-            id = it.id,
-            name = it.name,
-            status = it.status,
-            species = it.species,
-            gender = it.gender,
-            presentLocation = it.presentLocation.name,
-            originLocation = it.originLocation.name,
-            imageUrl = it.imageUrl
-        )
+        it.asDomainModel()
     }
+}
+
+fun NetworkCharacter.asDomainModel():Character{
+    return Character(
+        id = id,
+        name = name,
+        status = status,
+        species = species,
+        gender = gender,
+        presentLocation = presentLocation.name,
+        originLocation = originLocation.name,
+        imageUrl = imageUrl
+    )
 }
 
 

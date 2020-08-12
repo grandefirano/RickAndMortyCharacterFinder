@@ -5,21 +5,13 @@ import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface ApiService {
     @GET("character")
-    fun getCharacters():Deferred<NetworkCharacterContainer>
+    fun getListOfCharacters():Deferred<NetworkCharactersContainer>
+
+    @GET("character/{id}")
+    fun getCharacter(@Path("id")id:Int):Deferred<NetworkCharacter>
 }
 
-object ApiNetwork {
-
-    // Configure retrofit to parse JSON and use coroutines
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://rickandmortyapi.com/api/")
-        .addConverterFactory(MoshiConverterFactory.create())
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .build()
-
-    val api = retrofit.create(ApiService::class.java)
-
-}
