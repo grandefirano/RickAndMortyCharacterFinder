@@ -3,21 +3,24 @@ package com.grandefirano.rickandmortycharacterfinder.list
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.grandefirano.rickandmortycharacterfinder.databinding.ListItemCharacterLayoutBinding
 
-class CharactersListAdapter()
-    :ListAdapter<Character,CharactersListAdapter.ViewHolder>(CharacterDiffCallback()){
+class CharactersListAdapter
+    : PagingDataAdapter<Character, CharactersListAdapter.ViewHolder>(CharacterDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       holder.bind(getItem(position))
+      val item=getItem(position)
+        item?.let {
+            holder.bind(it)
+        }
     }
 
 

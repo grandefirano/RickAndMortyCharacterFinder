@@ -1,21 +1,39 @@
 package com.grandefirano.rickandmortycharacterfinder.data
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.grandefirano.rickandmortycharacterfinder.network.ApiService
 import com.grandefirano.rickandmortycharacterfinder.network.asDomainModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class Repository @Inject constructor(private val apiSevice: ApiService) {
 
 
-    suspend fun getAllCharacters():List<Character>{
+    companion object {
+        private const val NETWORK_PAGE_SIZE = 50
+    }
 
-       return apiSevice.getListOfCharacters().await().asDomainModel()
+    fun getCharactersSearchResult(query:String): Flow<PagingData<Character>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {CharacterPagingSource(apiSevice,query)}
+        ).flow
+    }
+
+    suspend fun getCharacters(page:Int=1):List<Character>{
+
+       return apiSevice.getListOfCharacters(page).asDomainModel()
     }
     suspend fun getCharacter(userId:Int): Character {
 
-        return apiSevice.getCharacter(userId).await().asDomainModel()
+        return apiSevice.getCharacter(userId).asDomainModel()
     }
 
     suspend fun refreshList(){

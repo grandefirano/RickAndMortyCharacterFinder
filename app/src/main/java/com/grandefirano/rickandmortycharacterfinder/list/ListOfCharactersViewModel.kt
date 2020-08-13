@@ -3,28 +3,34 @@ package com.grandefirano.rickandmortycharacterfinder.list
 import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.grandefirano.rickandmortycharacterfinder.data.Repository
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+
 
 class ListOfCharactersViewModel @ViewModelInject constructor(private val repository: Repository) :
     ViewModel() {
     private val TAG = "ListOfCharactersViewMod"
 
 
-    val listOfCharacters = liveData {
-        Log.d(TAG, "livedata emit: ")
-        emit(repository.getAllCharacters())
-        
-    }
+    private var currentQueryValue:String?=null
+    private var currentSearchResult: Flow<PagingData<Character>>?=null
 
-
-    fun getListOfCharacters() {
-        viewModelScope.launch {
-            Log.d(TAG, "list ${repository.getAllCharacters()}")
-
-            Log.d(TAG, "44 character ${repository.getCharacter(44)}")
+    fun searchCharacter(queryString:String):Flow<PagingData<Character>>{
+        val lastResult=currentSearchResult
+        if(queryString==currentQueryValue && lastResult!=null){
+            return lastResult
         }
+        currentQueryValue=queryString
+        val newResult: Flow<PagingData<Character>> =repository.getCharactersSearchResult(queryString)
+            .cachedIn(viewModelScope)
+        Log.d(TAG, "searchCharacter: ")
+        currentSearchResult=newResult
+        return newResult
     }
+
+
 }

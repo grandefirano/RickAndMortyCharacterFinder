@@ -15,6 +15,9 @@ import com.grandefirano.rickandmortycharacterfinder.*
 import com.grandefirano.rickandmortycharacterfinder.databinding.FragmentListOfCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_list_of_characters.view.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListOfCharactersFragment : Fragment() {
@@ -22,6 +25,12 @@ class ListOfCharactersFragment : Fragment() {
     val viewModel: ListOfCharactersViewModel by viewModels()
 
     private val TAG = "ListOfCharactersFragmen"
+
+    private var searchJob: Job?=null
+
+    private val adapter by lazy {
+        CharactersListAdapter()
+    }
 
 
     override fun onCreateView(
@@ -37,21 +46,29 @@ class ListOfCharactersFragment : Fragment() {
         )
 
 
-        val adapter=CharactersListAdapter()
+
         val manager=GridLayoutManager(context,3)
         binding.characterList.adapter=adapter
         binding.characterList.layoutManager=manager
 
         binding.lifecycleOwner=this
 
-        viewModel.listOfCharacters.observe(viewLifecycleOwner, Observer {list->
-            Log.d(TAG, "onCreateView: observe ")
-            list?.let {
-                adapter.submitList(list)
-            }
-        })
-
+        search("")
         return binding.root
+    }
+
+    private fun updateRepoListFromInput(){
+        search("")
+    }
+
+
+    private fun search(query:String){
+        searchJob?.cancel()
+        searchJob=lifecycleScope.launch {
+            viewModel.searchCharacter("").collectLatest {
+                adapter.submitData(it)
+            }
+        }
     }
 
 
