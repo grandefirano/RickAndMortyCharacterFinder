@@ -11,6 +11,9 @@ const val GET_CHARACTER:String="character/{id}"
 interface ApiService {
     @GET(GET_LIST_OF_CHARACTERS)
     suspend fun getListOfCharacters(
+        @Query("name") name:String?=null,
+        @Query("gender") gender:String?=null,
+        @Query("status") status:String?=null,
         @Query("page") page:Int=1
     ):NetworkCharactersContainer
 

@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.grandefirano.rickandmortycharacterfinder.*
+import com.grandefirano.rickandmortycharacterfinder.data.Search
 import com.grandefirano.rickandmortycharacterfinder.databinding.FragmentListOfCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_list_of_characters.view.*
@@ -27,6 +30,8 @@ class ListOfCharactersFragment : Fragment() {
     private val TAG = "ListOfCharactersFragmen"
 
     private var searchJob: Job?=null
+
+    val searchRequest:MutableLiveData<Search> =MutableLiveData()
 
     private val adapter by lazy {
         CharactersListAdapter()
@@ -53,19 +58,28 @@ class ListOfCharactersFragment : Fragment() {
 
         binding.lifecycleOwner=this
 
-        search("")
+
+
+        val searchRes=Search()
+        searchRes.name="rick"
+        searchRes.gender=Search.GenderOption.FEMALE
+
+        searchRequest.value=searchRes
+
+        searchRequest.observe(viewLifecycleOwner, Observer {
+            search(searchRes)
+        })
+
+
         return binding.root
     }
 
-    private fun updateRepoListFromInput(){
-        search("")
-    }
 
 
-    private fun search(query:String){
+    private fun search(query: Search){
         searchJob?.cancel()
         searchJob=lifecycleScope.launch {
-            viewModel.searchCharacter("").collectLatest {
+            viewModel.searchCharacters(query).collectLatest {
                 adapter.submitData(it)
             }
         }

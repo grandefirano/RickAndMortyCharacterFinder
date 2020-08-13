@@ -11,14 +11,19 @@ private const val CHARACTER_STARTING_PAGE_INDEX = 1
 
 class CharacterPagingSource(
     private val service: ApiService,
-    private val query: String
+    private val query: Search
 ) : PagingSource<Int, Character>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val page = params.key ?: CHARACTER_STARTING_PAGE_INDEX
 
         return try {
 
-            val response = service.getListOfCharacters(page)
+            val response = service.getListOfCharacters(
+                name=query.name,
+                gender = query.gender?.value,
+                status = query.status?.value,
+                page=page
+            )
             val characters = response.asDomainModel()
             LoadResult.Page(
                 data = characters,

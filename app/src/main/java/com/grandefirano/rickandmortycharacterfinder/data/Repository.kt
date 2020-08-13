@@ -17,7 +17,7 @@ class Repository @Inject constructor(private val apiSevice: ApiService) {
         private const val NETWORK_PAGE_SIZE = 50
     }
 
-    fun getCharactersSearchResult(query:String): Flow<PagingData<Character>> {
+    fun getCharactersSearchResult(query:Search): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
@@ -27,10 +27,7 @@ class Repository @Inject constructor(private val apiSevice: ApiService) {
         ).flow
     }
 
-    suspend fun getCharacters(page:Int=1):List<Character>{
 
-       return apiSevice.getListOfCharacters(page).asDomainModel()
-    }
     suspend fun getCharacter(userId:Int): Character {
 
         return apiSevice.getCharacter(userId).asDomainModel()
