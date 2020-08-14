@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="colorTextSpinner">#444</color>
+    <color name="colorPrimary">#222</color>
+    <color name="colorPrimaryDark">#171717</color>
+    <color name="colorAccent">#82CD08</color>
+    <color name="colorTextSpinner">#ddd</color>
+    <color name="colorText">#ddd</color>
+
+    <color name="colorBackground">#171717</color>
+    <color name="colorShadow">#5D9501</color>
+    <color name="colorTitleText">#22A1BD</color>
 </resources>

@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.databinding.library.baseAdapters.BR
 import com.grandefirano.rickandmortycharacterfinder.R
-import kotlinx.android.synthetic.main.layout_search.view.*
+
 
 class Search{
     var name:String?=null
@@ -15,14 +15,16 @@ class Search{
 
 
 
-   enum class GenderOption(val value:String){
+   enum class GenderOption(val value:String?){
+       ALL(null),
        MALE("male"),
        FEMALE("female"),
        GENDERLESS("genderless"),
        UNKNOWN("unknown")
     }
 
-    enum class StatusOption(val value:String){
+    enum class StatusOption(val value:String?){
+        ALL(null),
         ALIVE("alive"),
         DEAD("dead"),
         UNKNOWN("unknown")

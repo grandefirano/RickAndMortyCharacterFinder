@@ -53,8 +53,8 @@ class ListOfCharactersViewModel @ViewModelInject constructor(private val reposit
         _searchRequest.value=search
     }
 
-    fun onQueryGenderChanged(gender: Search.GenderOption) {
-        Log.d(TAG, "onQueryGenderChanged: gender changed for ${gender.value}")
+    fun onQueryGenderChanged(gender: Search.GenderOption?) {
+        Log.d(TAG, "onQueryGenderChanged: gender changed for ${gender?.value}")
         val search=_searchRequest.value
         search?.gender=gender
         _searchRequest.value=search

@@ -18,10 +18,7 @@ import com.grandefirano.rickandmortycharacterfinder.*
 import com.grandefirano.rickandmortycharacterfinder.data.Search
 import com.grandefirano.rickandmortycharacterfinder.databinding.FragmentListOfCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_list_of_characters.*
-import kotlinx.android.synthetic.main.fragment_list_of_characters.view.*
-import kotlinx.android.synthetic.main.layout_search.*
-import kotlinx.android.synthetic.main.layout_search.view.*
+
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -102,6 +99,7 @@ class ListOfCharactersFragment : Fragment() {
         initGenderSpinner()
 
         searchRequest.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "onCreateView: ${it.name} ${it.gender} ${it.status}")
             search(it)
             Log.d(TAG, "onCreateView: searchRequestChanged")
         })
@@ -160,6 +158,7 @@ class ListOfCharactersFragment : Fragment() {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.searchCharacters(query).collectLatest {
+                Log.d(TAG, "search: collect Latest ${it.toString()}")
                 adapter.submitData(it)
             }
         }

@@ -1,14 +1,16 @@
 <resources>
-    <string name="app_name">RickAndMortyCharacterFinder</string>
+    <string name="app_name">Character Finder</string>
 
 
     <string-array name="gender_list_name">
+        <item>- Any gender -</item>
         <item>Male</item>
         <item>Female</item>
         <item>Genderless</item>
         <item>Unknown</item>
     </string-array>
     <string-array name="gender_list_value">
+        <item>ALL</item>
         <item>MALE</item>
         <item>FEMALE</item>
         <item>GENDERLESS</item>
@@ -16,11 +18,13 @@
     </string-array>
 
     <string-array name="status_list_name">
+        <item>- Any status -</item>
         <item>Alive</item>
         <item>Dead</item>
         <item>Unknown</item>
     </string-array>
     <string-array name="status_list_value">
+        <item>ALL</item>
         <item>ALIVE</item>
         <item>DEAD</item>
         <item>UNKNOWN</item>
