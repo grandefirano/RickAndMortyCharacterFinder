@@ -20,7 +20,7 @@
 
         <ImageView
             android:id="@+id/characterImageView"
-            characterImage="@{character}"
+            imageUrl="@{character.imageUrl}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:src="@mipmap/ic_launcher_round" />

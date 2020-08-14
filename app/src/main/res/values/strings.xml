@@ -4,8 +4,8 @@
 
     <string-array name="gender_list_name">
         <item>- Any gender -</item>
-        <item>Male</item>
-        <item>Female</item>
+        <item>Men</item>
+        <item>Women</item>
         <item>Genderless</item>
         <item>Unknown</item>
     </string-array>

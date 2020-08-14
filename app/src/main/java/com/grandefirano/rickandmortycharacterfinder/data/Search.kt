@@ -17,17 +17,17 @@ class Search{
 
    enum class GenderOption(val value:String?){
        ALL(null),
-       MALE("male"),
-       FEMALE("female"),
-       GENDERLESS("genderless"),
-       UNKNOWN("unknown")
+       MALE("Male"),
+       FEMALE("Female"),
+       GENDERLESS("Genderless"),
+       UNKNOWN("Unknown")
     }
 
     enum class StatusOption(val value:String?){
         ALL(null),
-        ALIVE("alive"),
-        DEAD("dead"),
-        UNKNOWN("unknown")
+        ALIVE("Alive"),
+        DEAD("Dead"),
+        UNKNOWN("Unknown")
     }
 
 }
