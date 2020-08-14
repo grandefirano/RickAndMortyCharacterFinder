@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".details.DetailsFragment">
+
+    <data>
+
+        <variable
+            name="character"
+            type="com.grandefirano.rickandmortycharacterfinder.data.Character" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <ImageView
+            android:id="@+id/photoDetailsImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:imageUrl="@{character.imageUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/sym_def_app_icon" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="16dp"
+            android:background="#C39B9B"
+            android:text="@{character.name}"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toBottomOf="@+id/photoDetailsImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView"
+            app:layout_constraintVertical_bias="0.804" />
+
+        <ImageView
+            android:id="@+id/genderImageView"
+            genderIcon="@{character}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/marginStartDetails"
+            android:src="@drawable/ic_question"
+            app:layout_constraintBottom_toTopOf="@+id/statusImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
+
+        <TextView
+            android:id="@+id/genderTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="Gender"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+
+            app:layout_constraintStart_toEndOf="@+id/genderImageView"
+            app:layout_constraintTop_toTopOf="@+id/genderImageView" />
+
+        <TextView
+            android:id="@+id/genderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="@{character.gender}"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
+            app:layout_constraintStart_toEndOf="@+id/genderImageView"
+            app:layout_constraintTop_toTopOf="@+id/genderImageView" />
+
+
+        <ImageView
+            android:id="@+id/statusImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/marginStartDetails"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/genderImageView"
+            app:statusIcon="@{character}" />
+
+        <TextView
+            android:id="@+id/statusTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="Alive or no?"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/statusImageView"
+            app:layout_constraintTop_toTopOf="@+id/statusImageView" />
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="@{character.status}"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
+            app:layout_constraintStart_toEndOf="@+id/statusImageView"
+            app:layout_constraintTop_toTopOf="@+id/statusImageView" />
+
+
+        <ImageView
+            android:id="@+id/bornPlaceImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/marginStartDetails"
+
+            android:src="@drawable/ic_bird_stork"
+            app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/genderImageView" />
+
+        <TextView
+            android:id="@+id/bornPlaceTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:text="Origin Location"
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+
+
+            app:layout_constraintStart_toEndOf="@+id/bornPlaceImageView"
+            app:layout_constraintTop_toTopOf="@+id/bornPlaceImageView" />
+
+
+        <TextView
+            android:id="@+id/bornPlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="@{character.originLocation}"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+
+            app:layout_constraintBottom_toBottomOf="@+id/bornPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/bornPlaceImageView"
+            app:layout_constraintTop_toTopOf="@+id/bornPlaceImageView" />
+
+
+        <ImageView
+            android:id="@+id/presentPlaceImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/marginStartDetails"
+
+            android:src="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/statusImageView" />
+
+        <TextView
+            android:id="@+id/presentPlaceTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="Present Location"
+            android:textSize="@dimen/textSizeDetails"
+
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
+            app:layout_constraintTop_toTopOf="@+id/presentPlaceImageView" />
+
+
+        <TextView
+            android:id="@+id/presentPlaceTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/marginMedium"
+            android:text="@{character.presentLocation}"
+            android:textColor="@color/colorText"
+            android:visibility="gone"
+            android:textSize="@dimen/textSizeDetails"
+
+            app:layout_constraintBottom_toBottomOf="@+id/presentPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
+            app:layout_constraintTop_toTopOf="@+id/presentPlaceImageView" />
+
+        <ImageView
+            android:id="@+id/portalImageView"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="7dp"
+            android:src="@drawable/portal_image"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bornPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/genderImageView"
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

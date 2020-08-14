@@ -18,7 +18,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.grandefirano.rickandmortycharacterfinder.details.DetailsFragment"
         android:label="details_fragment"
-        tools:layout="@layout/fragment_details" >
+        tools:layout="@layout/fragment_details_before" >
         <argument
             android:name="character"
             app:argType="com.grandefirano.rickandmortycharacterfinder.data.Character" />

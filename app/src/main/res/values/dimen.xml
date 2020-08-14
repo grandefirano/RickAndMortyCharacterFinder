@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="marginMedium">20dp</dimen>
-    <dimen name="marginStartDetails">50dp</dimen>
+    <dimen name="marginStartDetails">30dp</dimen>
+    <dimen name="textSizeDetails">18sp</dimen>
 
 </resources>
