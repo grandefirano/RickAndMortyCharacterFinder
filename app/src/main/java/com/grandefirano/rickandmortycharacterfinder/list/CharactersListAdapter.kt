@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.grandefirano.rickandmortycharacterfinder.databinding.ListItemCharacterLayoutBinding
 
-class CharactersListAdapter
+class CharactersListAdapter(private val clickListener:CharacterClickListener)
     : PagingDataAdapter<Character, CharactersListAdapter.ViewHolder>(CharacterDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,7 +19,7 @@ class CharactersListAdapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       val item=getItem(position)
         item?.let {
-            holder.bind(it)
+            holder.bind(it,clickListener)
         }
     }
 
@@ -27,9 +27,10 @@ class CharactersListAdapter
     class ViewHolder private constructor(private val binding:ListItemCharacterLayoutBinding)
         :RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item:Character){
+        fun bind(item:Character,clickListener: CharacterClickListener){
             Log.d("TAG", "bind: Binding")
             binding.character=item
+            binding.clickListener=clickListener
             binding.executePendingBindings()
 
         }
@@ -58,4 +59,8 @@ class CharacterDiffCallback:DiffUtil.ItemCallback<Character>(){
         return oldItem==newItem
     }
 
+}
+
+class CharacterClickListener(val clickListener:(character:Character)->Unit){
+    fun onClick(character:Character)=clickListener(character)
 }

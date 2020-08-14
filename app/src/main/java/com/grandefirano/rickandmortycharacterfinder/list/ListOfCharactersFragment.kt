@@ -13,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.grandefirano.rickandmortycharacterfinder.*
 import com.grandefirano.rickandmortycharacterfinder.data.Search
@@ -32,15 +33,17 @@ class ListOfCharactersFragment : Fragment() {
 
     private var searchJob: Job? = null
 
-    val searchRequest: LiveData<Search> by lazy {
+    private val searchRequest: LiveData<Search> by lazy {
         viewModel.searchRequest
     }
 
     private val adapter by lazy {
-        CharactersListAdapter()
+        CharactersListAdapter(CharacterClickListener { character->
+            viewModel.onCharacterClicked(character)
+        })
     }
 
-    lateinit var binding:FragmentListOfCharactersBinding
+    private lateinit var binding:FragmentListOfCharactersBinding
 
     val itemPerRow: MutableLiveData<Int> = MutableLiveData(3)
 
@@ -79,7 +82,7 @@ class ListOfCharactersFragment : Fragment() {
 
 
 
-        binding = DataBindingUtil.inflate<FragmentListOfCharactersBinding>(
+        binding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_list_of_characters,
             container,
@@ -97,6 +100,7 @@ class ListOfCharactersFragment : Fragment() {
 
 
         initGenderSpinner()
+        initStatusSpinner()
 
         searchRequest.observe(viewLifecycleOwner, Observer {
             Log.d(TAG, "onCreateView: ${it.name} ${it.gender} ${it.status}")
@@ -109,6 +113,15 @@ class ListOfCharactersFragment : Fragment() {
             val manager = GridLayoutManager(context, itemPerRow)
             binding.characterList.adapter = adapter
             binding.characterList.layoutManager = manager
+        })
+
+        viewModel.navigateToCharacterDetail.observe(viewLifecycleOwner, Observer {character->
+            character?.let {
+                this.findNavController().navigate(
+                    ListOfCharactersFragmentDirections
+                        .actionListOfCharactersFragmentToDetailsFragment(it))
+                viewModel.onCharacterDetailNavigated()
+            }
         })
 
         val scaleDetector = ScaleGestureDetector(this.context, PinchListener())
@@ -130,11 +143,11 @@ class ListOfCharactersFragment : Fragment() {
         val valuesOfGenderSpinner=resources.getStringArray(R.array.gender_list_value)
 
         val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
-            requireActivity().applicationContext,
+            requireActivity(),
             R.layout.item_checked_spinner,
             titlesOfGenderSpinner
         )
-        adapterSpinner.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        adapterSpinner.setDropDownViewResource(R.layout.item_spinner_dropdown)
         binding.spinnerGender.adapter=adapterSpinner
         binding.spinnerGender.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
@@ -143,11 +156,38 @@ class ListOfCharactersFragment : Fragment() {
 
             override fun onItemSelected(
                 parentView: AdapterView<*>?,
-                selectedItemView: View,
+                selectedItemView: View?,
                 position: Int,
                 id: Long
             ) {
                viewModel.onQueryGenderChanged(Search.GenderOption.valueOf(valuesOfGenderSpinner[position]))
+            }
+
+        }
+    }
+    private fun initStatusSpinner(){
+        val titlesOfStatusSpinner=resources.getStringArray(R.array.status_list_name)
+        val valuesOfStatusSpinner=resources.getStringArray(R.array.status_list_value)
+
+        val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
+            requireActivity(),
+            R.layout.item_checked_spinner,
+            titlesOfStatusSpinner
+        )
+        adapterSpinner.setDropDownViewResource(R.layout.item_spinner_dropdown)
+        binding.spinnerStatus.adapter=adapterSpinner
+        binding.spinnerStatus.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(
+                parentView: AdapterView<*>?,
+                selectedItemView: View?,
+                position: Int,
+                id: Long
+            ) {
+                viewModel.onQueryStatusChanged(Search.StatusOption.valueOf(valuesOfStatusSpinner[position]))
             }
 
         }
@@ -158,7 +198,6 @@ class ListOfCharactersFragment : Fragment() {
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
             viewModel.searchCharacters(query).collectLatest {
-                Log.d(TAG, "search: collect Latest ${it.toString()}")
                 adapter.submitData(it)
             }
         }

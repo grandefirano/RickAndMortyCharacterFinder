@@ -6,12 +6,16 @@
         <variable
             name="character"
             type="com.grandefirano.rickandmortycharacterfinder.data.Character" />
+        <variable
+            name="clickListener"
+            type="com.grandefirano.rickandmortycharacterfinder.list.CharacterClickListener" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
+        android:onClick="@{()->clickListener.onClick(character)}"
         android:orientation="vertical">
 
         <ImageView
@@ -23,7 +27,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="48dp"
             android:layout_below="@+id/characterImageView"
             android:fontFamily="sans-serif-thin"
             android:gravity="center"

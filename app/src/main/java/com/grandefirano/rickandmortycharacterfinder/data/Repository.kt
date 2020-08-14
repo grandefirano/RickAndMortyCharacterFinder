@@ -28,9 +28,9 @@ class Repository @Inject constructor(private val apiSevice: ApiService) {
     }
 
 
-    suspend fun getCharacter(userId:Int): Character {
+    suspend fun getCharacter(userId:Int): Character? {
 
-        return apiSevice.getCharacter(userId).asDomainModel()
+        return apiSevice.getCharacter(userId)?.asDomainModel()
     }
 
     suspend fun refreshList(){

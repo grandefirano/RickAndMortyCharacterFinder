@@ -9,4 +9,5 @@
     <color name="colorBackground">#171717</color>
     <color name="colorShadow">#5D9501</color>
     <color name="colorTitleText">#22A1BD</color>
+    <color name="colorSpinnerDropdown">#363636</color>
 </resources>

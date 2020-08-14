@@ -20,7 +20,7 @@
         android:label="details_fragment"
         tools:layout="@layout/fragment_details" >
         <argument
-            android:name="idOfCharacter"
-            app:argType="integer" />
+            android:name="character"
+            app:argType="com.grandefirano.rickandmortycharacterfinder.data.Character" />
     </fragment>
 </navigation>

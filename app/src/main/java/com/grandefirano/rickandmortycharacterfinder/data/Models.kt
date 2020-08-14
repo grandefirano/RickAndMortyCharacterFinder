@@ -1,5 +1,9 @@
 package com.grandefirano.rickandmortycharacterfinder.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Character(
     val id: Int,
     val name: String,
@@ -9,4 +13,4 @@ data class Character(
     val originLocation:String,
     val presentLocation:String,
     val imageUrl:String
-)
+) : Parcelable

@@ -5,6 +5,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorText</item>
+        <item name="android:textColorPrimary">@color/colorText</item>
+
     </style>
 
 
@@ -15,7 +18,7 @@
         <item name="android:textColor">@color/colorTitleText</item>
         <item name="android:shadowColor">@color/colorShadow</item>
         <item name="android:shadowRadius">20</item>
-
     </style>
+
 
 </resources>
