@@ -18,9 +18,19 @@ class ListOfCharactersViewModel @ViewModelInject constructor(private val reposit
     ViewModel() {
     private val TAG = "ListOfCharactersViewMod"
 
+//    val genderSearch:MutableLiveData<Search.GenderOption> =MutableLiveData()
+//    val statusSearch:MutableLiveData<Search.StatusOption> = MutableLiveData()
+//    val nameSearch:MutableLiveData<String> =MutableLiveData()
 
-    private var searchRequest: LiveData<Search> = MutableLiveData()
+    val searchRequest:LiveData<Search>
+    get() = _searchRequest
+    private var _searchRequest: MutableLiveData<Search> = MutableLiveData()
+
     private var currentSearchResult: Flow<PagingData<Character>>?=null
+
+    init {
+        _searchRequest.value= Search()
+    }
 
     fun searchCharacters(search:Search):Flow<PagingData<Character>>{
        // val lastResult=currentSearchResult
@@ -35,6 +45,19 @@ class ListOfCharactersViewModel @ViewModelInject constructor(private val reposit
         Log.d(TAG, "searchCharacter: ")
         currentSearchResult=newResult
         return newResult
+    }
+
+    fun onQueryTextChanged(newText: String) {
+        val search=_searchRequest.value
+        search?.name=newText
+        _searchRequest.value=search
+    }
+
+    fun onQueryGenderChanged(gender: Search.GenderOption) {
+        Log.d(TAG, "onQueryGenderChanged: gender changed for ${gender.value}")
+        val search=_searchRequest.value
+        search?.gender=gender
+        _searchRequest.value=search
     }
 
 
