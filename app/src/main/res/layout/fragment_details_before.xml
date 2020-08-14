@@ -34,15 +34,18 @@
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="88dp"
             android:layout_marginEnd="16dp"
             android:background="#C39B9B"
             android:text="@{character.name}"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="@+id/photoDetailsImageView"
+            app:layout_constraintStart_toStartOf="@id/guideline3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView"
-            app:layout_constraintVertical_bias="0.804" />
+            app:layout_constraintVertical_bias="0.804"
+            app:layout_constraintHorizontal_bias="1"/>
 
         <ImageView
             android:id="@+id/genderImageView"
@@ -61,9 +64,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Gender"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
 
             app:layout_constraintStart_toEndOf="@+id/genderImageView"
@@ -75,9 +78,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="@{character.gender}"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
             app:layout_constraintStart_toEndOf="@+id/genderImageView"
@@ -101,9 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Alive or no?"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/statusImageView"
             app:layout_constraintTop_toTopOf="@+id/statusImageView" />
@@ -114,9 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="@{character.status}"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
             app:layout_constraintStart_toEndOf="@+id/statusImageView"
@@ -139,10 +142,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:textSize="@dimen/textSizeDetails"
-
             android:text="Origin Location"
+
             android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
 
 
@@ -156,9 +159,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="@{character.originLocation}"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
 
             app:layout_constraintBottom_toBottomOf="@+id/bornPlaceImageView"
@@ -183,9 +186,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Present Location"
-            android:textSize="@dimen/textSizeDetails"
-
             android:textColor="@color/colorText"
+
+            android:textSize="@dimen/textSizeDetails"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
             app:layout_constraintTop_toTopOf="@+id/presentPlaceImageView" />
@@ -198,8 +201,8 @@
             android:layout_marginStart="@dimen/marginMedium"
             android:text="@{character.presentLocation}"
             android:textColor="@color/colorText"
-            android:visibility="gone"
             android:textSize="@dimen/textSizeDetails"
+            android:visibility="gone"
 
             app:layout_constraintBottom_toBottomOf="@+id/presentPlaceImageView"
             app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
@@ -216,6 +219,14 @@
             app:layout_constraintEnd_toStartOf="@+id/bornPlaceImageView"
             app:layout_constraintStart_toEndOf="@+id/genderImageView"
             app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
