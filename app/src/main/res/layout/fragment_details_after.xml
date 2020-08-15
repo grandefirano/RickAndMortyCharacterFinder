@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:text="Alive or no?"
+            android:text="Alive or not?"
             android:textColor="@color/colorText"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/statusImageView" />
@@ -222,6 +222,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/portal_image" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineVertical"
             android:layout_width="wrap_content"

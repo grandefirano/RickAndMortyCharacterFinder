@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".details.DetailsFragment">
+
+    <data>
+
+        <variable
+            name="character"
+            type="com.grandefirano.rickandmortycharacterfinder.data.Character" />
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground">
+
+        <ImageView
+            android:id="@+id/photoDetailsImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:profilePhoto="@{character}"
+            app:srcCompat="@drawable/rick_default" />
+
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:background="@color/colorBackground"
+            android:fontFamily="sans-serif-condensed-medium"
+
+            android:padding="10dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:shadowColor="@color/colorNameShadow"
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowRadius="1"
+            android:text="@{character.name}"
+
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/photoDetailsImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Rick Sanchez" />
+
+        <ImageView
+            android:id="@+id/genderImageView"
+            genderIcon="@{character}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_question"
+            app:layout_constraintBottom_toTopOf="@+id/genderTitleTextView"
+            app:layout_constraintEnd_toEndOf="@+id/genderTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="@+id/genderTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+        <TextView
+            android:id="@+id/genderTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:layout_marginEnd="8dp"
+
+            android:text="Gender"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toTopOf="@+id/genderTextView"
+            app:layout_constraintEnd_toEndOf="@+id/genderImageView"
+            app:layout_constraintEnd_toStartOf="@+id/bornPlaceTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/photoDetailsImageView"
+            app:layout_constraintTop_toBottomOf="@+id/genderImageView" />
+
+        <TextView
+            android:id="@+id/genderTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@{character.gender}"
+
+            android:textAlignment="center"
+
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toTopOf="@+id/statusImageView"
+            app:layout_constraintEnd_toEndOf="@+id/genderTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/genderTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/genderTitleTextView" />
+
+
+        <ImageView
+            android:id="@+id/statusImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_heart"
+            app:layout_constraintBottom_toTopOf="@+id/statusTitleTextView"
+            app:layout_constraintEnd_toEndOf="@+id/statusTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/statusTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/genderTextView"
+            app:statusIcon="@{character}" />
+
+        <TextView
+            android:id="@+id/statusTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:layout_marginEnd="8dp"
+            android:text="Alive or not?"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toTopOf="@+id/statusTextView"
+            app:layout_constraintEnd_toStartOf="@+id/presentPlaceTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/photoDetailsImageView"
+            app:layout_constraintTop_toBottomOf="@+id/statusImageView" />
+
+
+        <TextView
+            android:id="@+id/statusTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@{character.status}"
+
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/statusTitleTextView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/statusTitleTextView"
+            app:layout_constraintTop_toBottomOf="@+id/statusTitleTextView" />
+
+
+        <ImageView
+            android:id="@+id/bornPlaceImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:src="@drawable/ic_bird_stork"
+            app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
+            app:layout_constraintEnd_toEndOf="@+id/bornPlaceTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/bornPlaceTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/genderImageView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/bornPlaceTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:text="Origin Location"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toBottomOf="@+id/genderTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/genderTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/genderTitleTextView" />
+
+
+        <TextView
+            android:id="@+id/bornPlaceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:text="@{character.originLocation}"
+            android:textColor="@color/colorText"
+            android:textAlignment="center"
+
+            app:layout_constraintBottom_toTopOf="@+id/presentPlaceImageView"
+            app:layout_constraintEnd_toEndOf="@+id/bornPlaceTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/bornPlaceTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/genderTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/presentPlaceImageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+
+            android:src="@drawable/ic_location"
+            app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
+            app:layout_constraintEnd_toEndOf="@+id/presentPlaceTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/presentPlaceTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/statusImageView"
+            app:layout_constraintVertical_bias="1.0" />
+
+
+        <TextView
+            android:id="@+id/presentPlaceTitleTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+
+            android:layout_marginEnd="8dp"
+            android:text="Present Location"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/textSizeDetails"
+            app:layout_constraintBottom_toBottomOf="@+id/statusTitleTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/statusTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/statusTitleTextView" />
+
+        <TextView
+            android:id="@+id/presentPlaceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:autoSizeTextType="uniform"
+            android:text="@{character.presentLocation}"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/presentPlaceTitleTextView"
+            app:layout_constraintStart_toStartOf="@+id/presentPlaceTitleTextView"
+            app:layout_constraintTop_toTopOf="@+id/statusTextView"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/portalImageView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="7dp"
+            android:layout_marginBottom="@dimen/marginMedium"
+            android:src="@drawable/portal_image"
+
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/bornPlaceImageView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/genderImageView"
+            app:layout_constraintTop_toBottomOf="@+id/portalTextView" />
+
+        <TextView
+            android:id="@+id/portalTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/marginMedium"
+            android:fontFamily="@font/get_schwifty"
+            android:gravity="center"
+            android:shadowColor="@color/colorBackground"
+            android:shadowRadius="10"
+            android:text="More Info"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="40sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/portalImageView"
+            app:layout_constraintEnd_toEndOf="@id/portalImageView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@id/portalImageView"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+            tools:visibility="gone" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.33" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.59" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
