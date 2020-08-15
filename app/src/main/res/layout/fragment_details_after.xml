@@ -31,6 +31,23 @@
             app:srcCompat="@android:drawable/sym_def_app_icon" />
 
         <TextView
+            android:id="@+id/portalTextView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="MORE"
+            android:textSize="70sp"
+            android:textColor="#fff"
+            android:shadowColor="@color/colorBackground"
+            android:shadowRadius="10"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:fontFamily="@font/get_schwifty"
+            app:layout_constraintStart_toStartOf="@id/portalImageView"
+            app:layout_constraintEnd_toEndOf="@id/portalImageView"
+            app:layout_constraintTop_toTopOf="@id/portalImageView"
+            app:layout_constraintBottom_toBottomOf="@id/portalImageView"/>
+        <TextView
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -195,6 +212,7 @@
             android:id="@+id/portalImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/portal_image" />

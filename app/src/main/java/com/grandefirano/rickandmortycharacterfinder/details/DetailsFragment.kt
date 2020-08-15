@@ -58,10 +58,22 @@ private lateinit var binding:FragmentDetailsBeforeBinding
         binding.portalImageView.setOnClickListener {
             Log.d("TAG", "addAnimationOperations:CLICK ${Build.VERSION.SDK_INT}")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+
                 TransitionManager.beginDelayedTransition(root)
-                val constraint = if(set) constraint1 else constraint2
-                constraint.applyTo(root)
-                set = !set
+                if(!set) {
+                    constraint2.applyTo(root)
+                    set = !set
+                }
+            }
+        }
+        binding.photoDetailsImageView.setOnClickListener {
+            Log.d("TAG", "addAnimationOperations:CLICK ${Build.VERSION.SDK_INT}")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                TransitionManager.beginDelayedTransition(root)
+                if(set) {
+                    constraint1.applyTo(root)
+                    set = !set
+                }
             }
         }
 
