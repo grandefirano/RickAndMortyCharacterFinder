@@ -39,7 +39,16 @@ class CharacterPagingSource(
             return LoadResult.Error(exception)
         }catch (exception:HttpException){
             Log.i("TAG", "load: $exception")
-            return LoadResult.Error(exception)
+            when(exception.code()){
+                404->{
+                    LoadResult.Page(
+                        data= listOf(),
+                        prevKey = null,
+                        nextKey = null
+                    )
+                }
+                else-> return LoadResult.Error(exception)
+            }
         }catch (exception:Exception){
             Log.i("TAG", "load: $exception")
             return LoadResult.Error(exception)

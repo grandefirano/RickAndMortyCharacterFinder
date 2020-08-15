@@ -9,8 +9,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.grandefirano.rickandmortycharacterfinder.databinding.ListItemCharacterLayoutBinding
 
+
+
 class CharactersListAdapter(private val clickListener:CharacterClickListener)
     : PagingDataAdapter<Character, CharactersListAdapter.ViewHolder>(CharacterDiffCallback()){
+
+    companion object{
+        const val TYPE_CHARACTER=1
+        const val TYPE_FOOTER=2
+    }
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
        return ViewHolder.from(parent)
@@ -22,6 +32,9 @@ class CharactersListAdapter(private val clickListener:CharacterClickListener)
             holder.bind(it,clickListener)
         }
     }
+
+
+
 
 
     class ViewHolder private constructor(private val binding:ListItemCharacterLayoutBinding)

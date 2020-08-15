@@ -15,17 +15,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.grandefirano.rickandmortycharacterfinder.*
 import com.grandefirano.rickandmortycharacterfinder.data.Search
 import com.grandefirano.rickandmortycharacterfinder.databinding.FragmentListOfCharactersBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class ListOfCharactersFragment : Fragment() {
 
     val viewModel: ListOfCharactersViewModel by viewModels()
@@ -39,12 +46,12 @@ class ListOfCharactersFragment : Fragment() {
     }
 
     private val adapter by lazy {
-        CharactersListAdapter(CharacterClickListener { character->
+        CharactersListAdapter(CharacterClickListener { character ->
             viewModel.onCharacterClicked(character)
         })
     }
 
-    private lateinit var binding:FragmentListOfCharactersBinding
+    private lateinit var binding: FragmentListOfCharactersBinding
 
     val itemPerRow: MutableLiveData<Int> = MutableLiveData(3)
 
@@ -91,58 +98,80 @@ class ListOfCharactersFragment : Fragment() {
             false
         )
 
-
-
-
-        val manager = GridLayoutManager(context, 3)
-        binding.characterList.adapter = adapter
-        binding.characterList.layoutManager = manager
-
-        binding.lifecycleOwner = this
-
-
+        initGridLayout()
         initGenderSpinner()
         initStatusSpinner()
-
-        searchRequest.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onCreateView: ${it.name} ${it.gender} ${it.status}")
-            search(it)
-            Log.d(TAG, "onCreateView: searchRequestChanged")
-        })
-
-        itemPerRow.observe(viewLifecycleOwner, Observer { itemPerRow ->
-            Log.d(TAG, "onCreateView: itemprerov $itemPerRow")
-            val manager = GridLayoutManager(context, itemPerRow)
-            binding.characterList.adapter = adapter
-            binding.characterList.layoutManager = manager
-        })
-
-        viewModel.navigateToCharacterDetail.observe(viewLifecycleOwner, Observer {character->
-            character?.let {
-                this.findNavController().navigate(
-                    ListOfCharactersFragmentDirections
-                        .actionListOfCharactersFragmentToDetailsFragment(it))
-                viewModel.onCharacterDetailNavigated()
-            }
-        })
-
-        val scaleDetector = ScaleGestureDetector(this.context, PinchListener())
-        binding.characterList.setOnTouchListener { view, motionEvent ->
-            scaleDetector.onTouchEvent(motionEvent)
-            false
-        }
-
-
-
+        initSearch()
+        observeNavigationState()
+        initScaleGesture()
 
 
         return binding.root
     }
 
+    private fun initGridLayout(){
 
-    private fun initGenderSpinner(){
-        val titlesOfGenderSpinner=resources.getStringArray(R.array.gender_list_name)
-        val valuesOfGenderSpinner=resources.getStringArray(R.array.gender_list_value)
+        binding.lifecycleOwner = this
+
+        itemPerRow.observe(viewLifecycleOwner, Observer { itemPerRow ->
+            Log.d(TAG, "onCreateView: itemprerov $itemPerRow")
+            val manager = GridLayoutManager(context, itemPerRow).apply {
+                spanSizeLookup=object: GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return if(position>=adapter.itemCount){
+                            itemPerRow
+                        } else{
+                            1
+                        }
+                    }
+
+                }
+            }
+            binding.characterList.adapter = adapter.withLoadStateFooter(
+                footer = CharactersLoadStateAdapter{adapter.retry()}
+            )
+            binding.characterList.layoutManager = manager
+        })
+    }
+
+    private fun initSearch() {
+        searchRequest.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, "onCreateView: ${it.name} ${it.gender} ${it.status}")
+            binding.characterList.scrollToPosition(0)
+            search(it)
+            Log.d(TAG, "onCreateView: searchRequestChanged")
+        })
+
+    }
+
+
+
+    private fun observeNavigationState() {
+        viewModel.navigateToCharacterDetail.observe(viewLifecycleOwner, Observer { character ->
+            character?.let {
+                this.findNavController().navigate(
+                    ListOfCharactersFragmentDirections
+                        .actionListOfCharactersFragmentToDetailsFragment(it)
+                )
+                viewModel.onCharacterDetailNavigated()
+            }
+        })
+
+    }
+
+
+    private fun initScaleGesture() {
+        val scaleDetector = ScaleGestureDetector(this.context, PinchListener())
+        binding.characterList.setOnTouchListener { view, motionEvent ->
+            scaleDetector.onTouchEvent(motionEvent)
+            false
+        }
+    }
+
+
+    private fun initGenderSpinner() {
+        val titlesOfGenderSpinner = resources.getStringArray(R.array.gender_list_name)
+        val valuesOfGenderSpinner = resources.getStringArray(R.array.gender_list_value)
 
         val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
             requireActivity(),
@@ -150,8 +179,8 @@ class ListOfCharactersFragment : Fragment() {
             titlesOfGenderSpinner
         )
         adapterSpinner.setDropDownViewResource(R.layout.item_spinner_dropdown)
-        binding.spinnerGender.adapter=adapterSpinner
-        binding.spinnerGender.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+        binding.spinnerGender.adapter = adapterSpinner
+        binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
@@ -162,14 +191,15 @@ class ListOfCharactersFragment : Fragment() {
                 position: Int,
                 id: Long
             ) {
-               viewModel.onQueryGenderChanged(Search.GenderOption.valueOf(valuesOfGenderSpinner[position]))
+                viewModel.onQueryGenderChanged(Search.GenderOption.valueOf(valuesOfGenderSpinner[position]))
             }
 
         }
     }
-    private fun initStatusSpinner(){
-        val titlesOfStatusSpinner=resources.getStringArray(R.array.status_list_name)
-        val valuesOfStatusSpinner=resources.getStringArray(R.array.status_list_value)
+
+    private fun initStatusSpinner() {
+        val titlesOfStatusSpinner = resources.getStringArray(R.array.status_list_name)
+        val valuesOfStatusSpinner = resources.getStringArray(R.array.status_list_value)
 
         val adapterSpinner: ArrayAdapter<String> = ArrayAdapter<String>(
             requireActivity(),
@@ -177,8 +207,8 @@ class ListOfCharactersFragment : Fragment() {
             titlesOfStatusSpinner
         )
         adapterSpinner.setDropDownViewResource(R.layout.item_spinner_dropdown)
-        binding.spinnerStatus.adapter=adapterSpinner
-        binding.spinnerStatus.onItemSelectedListener=object : AdapterView.OnItemSelectedListener{
+        binding.spinnerStatus.adapter = adapterSpinner
+        binding.spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
