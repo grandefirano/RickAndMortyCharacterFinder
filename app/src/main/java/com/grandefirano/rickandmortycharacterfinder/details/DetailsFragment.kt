@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionManager
 import com.grandefirano.rickandmortycharacterfinder.R
 import com.grandefirano.rickandmortycharacterfinder.databinding.FragmentDetailsBeforeBinding
+
 import kotlinx.android.synthetic.main.fragment_details_before.*
 
 
@@ -22,12 +24,16 @@ class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
 
-private lateinit var binding:FragmentDetailsBeforeBinding
+private lateinit var binding: FragmentDetailsBeforeBinding
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as AppCompatActivity).supportActionBar?.hide()
 
         binding=FragmentDetailsBeforeBinding.inflate(inflater,container,false)
 

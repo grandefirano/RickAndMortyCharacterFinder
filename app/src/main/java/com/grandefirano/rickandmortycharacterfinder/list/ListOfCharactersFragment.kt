@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
@@ -50,6 +51,7 @@ class ListOfCharactersFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setHasOptionsMenu(true)
     }
 
@@ -80,7 +82,7 @@ class ListOfCharactersFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
+        (activity as AppCompatActivity).supportActionBar?.show()
 
         binding = DataBindingUtil.inflate(
             inflater,

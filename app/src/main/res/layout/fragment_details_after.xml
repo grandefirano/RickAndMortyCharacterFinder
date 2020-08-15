@@ -24,7 +24,7 @@
             android:layout_marginTop="16dp"
             android:adjustViewBounds="true"
             app:imageUrl="@{character.imageUrl}"
-            app:layout_constraintEnd_toEndOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,33 +47,44 @@
             app:layout_constraintEnd_toEndOf="@id/portalImageView"
             app:layout_constraintTop_toTopOf="@id/portalImageView"
             app:layout_constraintBottom_toBottomOf="@id/portalImageView"/>
+
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="16dp"
-            android:background="#C39B9B"
+            android:background="@color/colorBackground"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:padding="10dp"
+
+            android:shadowDx="4"
+            android:shadowDy="4"
+            android:shadowColor="@color/colorNameShadow"
+            android:shadowRadius="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
             android:text="@{character.name}"
+            android:textColor="@color/colorText"
+
+
             android:textSize="30sp"
-            app:layout_constraintStart_toStartOf="@id/guideline3"
+            app:layout_constraintBottom_toBottomOf="@+id/photoDetailsImageView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintBottom_toBottomOf="@+id/photoDetailsImageView"
+            app:layout_constraintStart_toStartOf="@id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/photoDetailsImageView"
-            />
+            tools:text="Rick Sanchez" />
 
         <ImageView
             android:id="@+id/genderImageView"
             genderIcon="@{character}"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginStart="@dimen/marginStartDetails"
-            app:layout_constraintStart_toStartOf="parent"
+
             android:src="@drawable/ic_question"
             app:layout_constraintBottom_toTopOf="@+id/statusImageView"
-            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView"
-            />
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
         <TextView
             android:id="@+id/genderTitleTextView"
             android:layout_width="wrap_content"
@@ -81,8 +92,8 @@
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Gender"
             android:textColor="@color/colorText"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
 
-            app:layout_constraintStart_toEndOf="@+id/genderImageView"
             app:layout_constraintTop_toTopOf="@+id/genderImageView" />
 
         <TextView
@@ -94,7 +105,7 @@
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
             app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
-            app:layout_constraintStart_toEndOf="@+id/genderImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@+id/genderTitleTextView" />
 
         <ImageView
@@ -102,7 +113,7 @@
             android:layout_width="90dp"
             android:layout_height="90dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="@dimen/marginStartDetails"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             android:src="@drawable/ic_heart"
             app:layout_constraintBottom_toTopOf="@+id/bornPlaceImageView"
             app:layout_constraintTop_toBottomOf="@+id/genderImageView"
@@ -115,8 +126,7 @@
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Alive or no?"
             android:textColor="@color/colorText"
-
-            app:layout_constraintStart_toEndOf="@+id/statusImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/statusImageView" />
 
         <TextView
@@ -129,7 +139,7 @@
             android:textSize="@dimen/textSizeDetails"
 
             app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
-            app:layout_constraintStart_toEndOf="@+id/statusImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@+id/statusTitleTextView" />
 
 
@@ -137,7 +147,7 @@
             android:id="@+id/bornPlaceImageView"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginStart="@dimen/marginStartDetails"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintStart_toStartOf="parent"
             android:src="@drawable/ic_bird_stork"
             app:layout_constraintBottom_toTopOf="@+id/presentPlaceImageView"
@@ -151,11 +161,7 @@
             android:layout_marginStart="@dimen/marginMedium"
             android:text="Origin Location"
             android:textColor="@color/colorText"
-
-
-
-
-            app:layout_constraintStart_toEndOf="@+id/bornPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/bornPlaceImageView" />
 
 
@@ -169,7 +175,7 @@
             android:textSize="@dimen/textSizeDetails"
 
             app:layout_constraintBottom_toBottomOf="@+id/bornPlaceImageView"
-            app:layout_constraintStart_toEndOf="@+id/bornPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@+id/bornPlaceTitleTextView" />
 
 
@@ -177,7 +183,7 @@
             android:id="@+id/presentPlaceImageView"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_marginStart="@dimen/marginStartDetails"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -191,7 +197,7 @@
             android:text="Present Location"
 
             android:textColor="@color/colorText"
-            app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/presentPlaceImageView" />
 
 
@@ -205,7 +211,7 @@
             android:textSize="@dimen/textSizeDetails"
 
             app:layout_constraintBottom_toBottomOf="@+id/presentPlaceImageView"
-            app:layout_constraintStart_toEndOf="@+id/presentPlaceImageView"
+            app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toBottomOf="@+id/presentPlaceTitleTextView" />
 
         <ImageView
@@ -217,14 +223,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/portal_image" />
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
+            android:id="@+id/guidelineVertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.33" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
-
