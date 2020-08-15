@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val apiSevice: ApiService) {
+class RepositoryImpl @Inject constructor(private val apiSevice: ApiService) : IRepository {
 
 
     companion object {
         private const val NETWORK_PAGE_SIZE = 50
     }
 
-    fun getCharactersSearchResult(query:Search): Flow<PagingData<Character>> {
+    override fun getCharactersSearchResult(query:Search): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,

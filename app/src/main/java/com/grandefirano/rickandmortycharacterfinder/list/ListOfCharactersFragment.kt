@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
@@ -127,9 +129,28 @@ class ListOfCharactersFragment : Fragment() {
 
                 }
             }
-            binding.characterList.adapter = adapter.withLoadStateFooter(
-                footer = CharactersLoadStateAdapter{adapter.retry()}
-            )
+            binding.characterList.adapter=adapter.run {
+                withLoadStateFooter(
+                    footer = CharactersLoadStateAdapter { adapter.retry() }
+                )
+            }
+            adapter.apply {
+                addLoadStateListener { loadState ->
+                    binding.characterList.isVisible =
+                        loadState.source.refresh is LoadState.NotLoading
+                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
+                    binding.retryButton.isVisible = loadState.source.refresh is LoadState.Error
+
+                    val errorState = loadState.source.append as? LoadState.Error
+                        ?: loadState.source.prepend as? LoadState.Error
+                        ?: loadState.append as? LoadState.Error
+                        ?: loadState.prepend as? LoadState.Error
+                    errorState?.let {
+                        Toast.makeText(context, "$errorState", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
             binding.characterList.layoutManager = manager
         })
     }

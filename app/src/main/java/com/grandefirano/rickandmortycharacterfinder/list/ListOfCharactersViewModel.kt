@@ -9,13 +9,17 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.grandefirano.rickandmortycharacterfinder.data.Character
-import com.grandefirano.rickandmortycharacterfinder.data.Repository
+import com.grandefirano.rickandmortycharacterfinder.data.RepositoryImpl
 import com.grandefirano.rickandmortycharacterfinder.data.Search
+import com.grandefirano.rickandmortycharacterfinder.shared.getViewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 
 
-class ListOfCharactersViewModel @ViewModelInject constructor(private val repository: Repository) :
-    ViewModel() {
+class ListOfCharactersViewModel @ViewModelInject constructor(
+    private val repository: RepositoryImpl,
+    private val coroutineScopeProvider:CoroutineScope?=null
+) : ViewModel() {
     private val TAG = "ListOfCharactersViewMod"
 
 //    val genderSearch:MutableLiveData<Search.GenderOption> =MutableLiveData()
@@ -50,7 +54,7 @@ class ListOfCharactersViewModel @ViewModelInject constructor(private val reposit
 
 
         val newResult: Flow<PagingData<Character>> =repository.getCharactersSearchResult(search)
-            .cachedIn(viewModelScope)
+            .cachedIn(getViewModelScope(coroutineScopeProvider))
         Log.d(TAG, "searchCharacter: ")
         currentSearchResult=newResult
         return newResult
