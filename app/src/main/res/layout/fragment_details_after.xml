@@ -23,7 +23,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
             android:adjustViewBounds="true"
-            app:imageUrl="@{character.imageUrl}"
+            app:profilePhoto="@{character}"
             app:layout_constraintEnd_toEndOf="@id/guidelineVertical"
 
             app:layout_constraintStart_toStartOf="parent"

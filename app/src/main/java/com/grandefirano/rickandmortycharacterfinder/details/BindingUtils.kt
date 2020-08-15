@@ -1,15 +1,35 @@
 package com.grandefirano.rickandmortycharacterfinder.details
 
+import android.graphics.Color
 import android.media.Image
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.grandefirano.rickandmortycharacterfinder.GlideApp
 import com.grandefirano.rickandmortycharacterfinder.R
 import com.grandefirano.rickandmortycharacterfinder.data.Character
 import com.grandefirano.rickandmortycharacterfinder.data.Search
 import com.grandefirano.rickandmortycharacterfinder.data.Search.GenderOption
 import com.grandefirano.rickandmortycharacterfinder.data.Search.StatusOption
+
+
+@BindingAdapter("profilePhoto")
+fun ImageView.setProfilePhoto(item: Character){
+
+
+    val circularProgressDrawable = CircularProgressDrawable(rootView.context)
+    circularProgressDrawable.strokeWidth = 30f
+    circularProgressDrawable.centerRadius = 200f
+    circularProgressDrawable.setColorSchemeColors(Color.parseColor("#82CD08"))
+    circularProgressDrawable.start()
+
+    GlideApp.with(rootView.context)
+        .load(item.imageUrl)
+        .placeholder(circularProgressDrawable)
+        .into(this)
+}
 
 @BindingAdapter("genderIcon")
 fun ImageView.setGenderImage(item:Character){
