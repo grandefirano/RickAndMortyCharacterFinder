@@ -23,13 +23,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            app:profilePhoto="@{character}"
+            android:contentDescription="@string/photo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/rick_default"
-            android:contentDescription="@string/photo" />
+            app:profilePhoto="@{character}"
+            app:srcCompat="@drawable/rick_default" />
 
         <TextView
             android:id="@+id/nameTextView"
@@ -67,11 +67,11 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/marginStartDetails"
+            android:contentDescription="@string/gender"
             android:src="@drawable/ic_question"
             app:layout_constraintBottom_toTopOf="@+id/statusImageView"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView"
-            android:contentDescription="@string/gender" />
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
 
         <TextView
             android:id="@+id/genderTitleTextView"
@@ -107,12 +107,12 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="@dimen/marginStartDetails"
+            android:contentDescription="@string/status"
             android:src="@drawable/ic_heart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/genderImageView"
-            app:statusIcon="@{character}"
-            android:contentDescription="@string/status" />
+            app:statusIcon="@{character}" />
 
         <TextView
             android:id="@+id/statusTitleTextView"
@@ -148,11 +148,11 @@
             android:layout_height="50dp"
             android:layout_marginEnd="@dimen/marginStartDetails"
 
+            android:contentDescription="@string/origin"
             android:src="@drawable/ic_bird_stork"
             app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/genderImageView"
-            android:contentDescription="@string/origin" />
+            app:layout_constraintTop_toTopOf="@+id/genderImageView" />
 
         <TextView
             android:id="@+id/bornPlaceTitleTextView"
@@ -192,11 +192,11 @@
             android:layout_height="50dp"
             android:layout_marginEnd="@dimen/marginStartDetails"
 
+            android:contentDescription="@string/present_place"
             android:src="@drawable/ic_location"
             app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/statusImageView"
-            android:contentDescription="@string/present_place" />
+            app:layout_constraintTop_toTopOf="@+id/statusImageView" />
 
         <TextView
             android:id="@+id/presentPlaceTitleTextView"
@@ -233,14 +233,13 @@
             android:layout_marginStart="5dp"
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="@dimen/marginMedium"
+            android:contentDescription="@string/portal"
             android:src="@drawable/portal_image"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bornPlaceImageView"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/genderImageView"
-            app:layout_constraintTop_toBottomOf="@+id/portalTextView"
-            android:contentDescription="@string/portal" />
+            app:layout_constraintTop_toBottomOf="@+id/portalTextView" />
 
         <TextView
             android:id="@+id/portalTextView"
@@ -252,7 +251,6 @@
             android:shadowColor="@color/colorBackground"
             android:shadowRadius="10"
             android:text="@string/more_info"
-
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="40sp"
@@ -275,6 +273,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.59" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

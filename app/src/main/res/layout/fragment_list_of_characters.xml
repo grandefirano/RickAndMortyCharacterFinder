@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="listAdapter"
+            type="com.grandefirano.rickandmortycharacterfinder.list.CharactersListAdapter" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,15 +91,18 @@
             app:layout_constraintBottom_toTopOf="@+id/mainProgressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Word Wide Web" />
+            android:text="@string/word_wide_web" />
 
         <Button
+            android:layout_marginTop="20dp"
             android:id="@+id/mainRetryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:background="@color/colorNameDetailsBackground"
+            android:background="@drawable/button_shape"
             android:text="@string/retry"
+            android:textSize="16sp"
+            android:textColor="@color/colorBackground"
+            android:onClick="@{()->listAdapter.retry()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

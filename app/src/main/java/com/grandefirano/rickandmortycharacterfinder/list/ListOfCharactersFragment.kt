@@ -1,5 +1,7 @@
 package com.grandefirano.rickandmortycharacterfinder.list
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -17,6 +19,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.grandefirano.rickandmortycharacterfinder.*
@@ -67,6 +70,7 @@ class ListOfCharactersFragment : Fragment() {
         setHasOptionsMenu(true)
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_main, menu)
@@ -80,14 +84,12 @@ class ListOfCharactersFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                Log.d(TAG, "onQueryTextChange: query changed")
+                Log.d(TAG, "onQueryTextChange: query changed newQuery= $newText")
                 viewModel.onQueryTextChanged(newText)
                 return false
             }
         })
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -102,6 +104,7 @@ class ListOfCharactersFragment : Fragment() {
             container,
             false
         )
+        binding.listAdapter=adapter
 
         initGridLayout()
         initGenderSpinner()
@@ -129,7 +132,6 @@ class ListOfCharactersFragment : Fragment() {
                             1
                         }
                     }
-
                 }
             }
             binding.characterList.adapter = adapter.run {
@@ -139,33 +141,7 @@ class ListOfCharactersFragment : Fragment() {
             }
             adapter.apply {
                 addLoadStateListener { loadState ->
-
-
-                    val loadStateSource = loadState.source.refresh
-                    binding.characterList.isVisible =
-                        loadStateSource is LoadState.NotLoading
-                    binding.mainProgressBar.isVisible = loadStateSource is LoadState.Loading
-                    binding.mainRetryButton.isVisible = loadStateSource is LoadState.Error
-                    binding.errorTextView.isVisible = loadStateSource is LoadState.Error
-                    binding.errorWWWTextView.visibility=View.GONE
-
-                    val errorState = loadState.source.refresh as? LoadState.Error
-                        ?:loadState.refresh as? LoadState.Error
-                    errorState?.let {
-                        val message: String
-                        if (errorState.error is UnknownHostException) {
-                            binding.errorWWWTextView.visibility=View.VISIBLE
-                            message = "There is no connection to"
-                        } else {
-                            binding.errorWWWTextView.visibility=View.GONE
-                            message = "Can't load characters"
-                        }
-                        binding.errorTextView.text=message
-
-                    }
-
-                   
-
+                    changeViewAccordingToLoadState(loadState)
 
 
                 }
@@ -175,12 +151,39 @@ class ListOfCharactersFragment : Fragment() {
         })
     }
 
+    private fun changeViewAccordingToLoadState(loadState: CombinedLoadStates) {
+        val loadStateSource = loadState.source.refresh
+        binding.characterList.isVisible =
+            loadStateSource is LoadState.NotLoading
+        binding.mainProgressBar.isVisible = loadStateSource is LoadState.Loading
+        binding.mainRetryButton.isVisible = loadStateSource is LoadState.Error
+        binding.errorTextView.isVisible = loadStateSource is LoadState.Error
+        binding.errorWWWTextView.visibility=View.GONE
+
+
+        val errorState = loadState.source.refresh as? LoadState.Error
+            ?:loadState.refresh as? LoadState.Error
+        errorState?.let {
+            val message: String
+            if (errorState.error is UnknownHostException) {
+                binding.errorWWWTextView.visibility=View.VISIBLE
+                message = "There is no connection to"
+            } else {
+                binding.errorWWWTextView.visibility=View.GONE
+                message = "Can't load characters"
+            }
+            binding.errorTextView.text=message
+
+        }
+
+    }
+
     private fun initSearch() {
         searchRequest.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, "onCreateView: ${it.name} ${it.gender} ${it.status}")
+            Log.d(TAG, "initSearch: ${it.name} ${it.gender} ${it.status}")
             binding.characterList.scrollToPosition(0)
             search(it)
-            Log.d(TAG, "onCreateView: searchRequestChanged")
+
         })
 
     }

@@ -46,12 +46,6 @@ class ListOfCharactersViewModel @ViewModelInject constructor(
     }
 
     fun searchCharacters(search:Search):Flow<PagingData<Character>>{
-       // val lastResult=currentSearchResult
-        /*if(queryString==currentSearc&& lastResult!=null){
-            return lastResult
-        }*/
-        //searchRequest.=queryString
-
 
         val newResult: Flow<PagingData<Character>> =repository.getCharactersSearchResult(search)
             .cachedIn(getViewModelScope(coroutineScopeProvider))
@@ -82,6 +76,8 @@ class ListOfCharactersViewModel @ViewModelInject constructor(
     fun onCharacterClicked(character: Character) {
         _navigateToCharacterDetail.value=character
     }
+
+
 
 
 }

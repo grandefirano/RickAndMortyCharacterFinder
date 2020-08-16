@@ -30,7 +30,7 @@ class NavigationTest {
 
 
         val textView = onView(withId(R.id.portalTextView))
-        textView.check(matches(withText("More Info")))
+        textView.check(matches(withText("MORE INFO")))
 
         val imageView = onView(withId(R.id.statusImageView))
         imageView.check(matches(isDisplayed()))
@@ -76,7 +76,7 @@ class NavigationTest {
         imageView9.check(matches(isDisplayed()))
 
         val textView6 = onView(withId(R.id.statusTitleTextView))
-        textView6.check(matches(withText("Alive or no?")))
+        textView6.check(matches(withText("Alive or not?")))
 
         val textView7 = onView(withId(R.id.statusTextView))
         textView7.check(matches(isDisplayed()))

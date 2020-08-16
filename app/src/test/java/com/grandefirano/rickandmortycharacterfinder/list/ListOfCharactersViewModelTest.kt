@@ -35,21 +35,10 @@ class ListOfCharactersViewModelTest {
     @get:Rule
     var instantExecutorRule=InstantTaskExecutorRule()
 
-
-//    @get:Rule
-//    var coroutinesTestRule = CoroutinesTestRule()
-
     @Before
     fun setUp() {
         repository=mock(RepositoryImpl::class.java)
         viewModel= ListOfCharactersViewModel(repository,testScope)
-        //Dispatchers.setMain(testDispatcher)
-    }
-    @After
-    fun afterAll() {
-//        Dispatchers.resetMain()
-//        testDispatcher.cleanupTestCoroutines()
-//        testScope.cleanupTestCoroutines()
     }
 
     @Test
@@ -70,19 +59,6 @@ class ListOfCharactersViewModelTest {
         assertThat(viewModel.navigateToCharacterDetail.getOrAwaitValue(),`is`(not(equalTo(character2))))
     }
 
-    /*Not working coroutines test
-    @Test
-    fun searchCharacters()=coroutinesTestRule.testDispatcher.runBlockingTest {
-       println( "searchCharacters: testscope$testScope")
-        viewModel= ListOfCharactersViewModel(repository,testScope)
-        val search=mock(Search::class.java)
-
-        delay(500)
-        viewModel.searchCharacters(search)
-
-        verify(repository).getCharactersSearchResult(search)
-
-    }*/
 
     @Test
     fun onQueryTextChanged_Equal() {
