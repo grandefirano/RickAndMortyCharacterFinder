@@ -1,16 +1,25 @@
 package com.grandefirano.rickandmortycharacterfinder.data
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
+
 @Parcelize
-data class Character(
-    val id: Int,
-    val name: String,
-    val status: String,
-    val species: String,
+@Entity(tableName = "characters")
+data class Character (
+    @PrimaryKey val id:Int,
+    val name:String,
+    val status:String,
+    val species:String,
     val gender:String,
+    @ColumnInfo(name = "origin_location")
     val originLocation:String,
-    val presentLocation:String,
-    val imageUrl:String
-) : Parcelable
+    @ColumnInfo(name="present_location")
+    val presentLocation: String,
+    @ColumnInfo(name="image_url")
+    val imageUrl: String
+
+):Parcelable
