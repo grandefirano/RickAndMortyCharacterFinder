@@ -36,10 +36,9 @@ class CharactersLoadStateAdapter(private val retry:()->Unit)
             if(loadState is LoadState.Error) {
 
 
-                val exception=loadState.error.cause
-                Log.d("TAG", "bind: ")
-                val message=if(exception is IOException){
-                   "There is no connection with World Wide Web"
+                val exception=loadState.error
+                val message=if(exception is UnknownHostException){
+                   "No internet connection"
                 }else{
                     "Error"
                 }

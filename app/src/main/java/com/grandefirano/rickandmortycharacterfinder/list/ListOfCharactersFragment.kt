@@ -147,14 +147,18 @@ class ListOfCharactersFragment : Fragment() {
                     binding.mainProgressBar.isVisible = loadStateSource is LoadState.Loading
                     binding.mainRetryButton.isVisible = loadStateSource is LoadState.Error
                     binding.errorTextView.isVisible = loadStateSource is LoadState.Error
+                    binding.errorWWWTextView.visibility=View.GONE
 
                     val errorState = loadState.source.refresh as? LoadState.Error
                         ?:loadState.refresh as? LoadState.Error
                     errorState?.let {
-                        val message = if (errorState.error is UnknownHostException) {
-                            "There is no connection to Word Wide Web"
+                        val message: String
+                        if (errorState.error is UnknownHostException) {
+                            binding.errorWWWTextView.visibility=View.VISIBLE
+                            message = "There is no connection to"
                         } else {
-                            "Can't load characters"
+                            binding.errorWWWTextView.visibility=View.GONE
+                            message = "Can't load characters"
                         }
                         binding.errorTextView.text=message
 

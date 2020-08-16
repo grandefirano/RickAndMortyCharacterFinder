@@ -67,20 +67,41 @@
             android:id="@+id/errorTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-light"
+            android:textAlignment="center"
+            android:textColor="@color/colorText"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/errorWWWTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="There is no connection to" />
+
+        <TextView
+            android:id="@+id/errorWWWTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
+            android:fontFamily="@font/get_schwifty"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="42sp"
             app:layout_constraintBottom_toTopOf="@+id/mainProgressBar"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="Word Wide Web" />
 
         <Button
             android:id="@+id/mainRetryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:background="@color/colorNameDetailsBackground"
             android:text="@string/retry"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
