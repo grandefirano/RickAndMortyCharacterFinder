@@ -40,6 +40,7 @@ class CharactersListAdapter(private val clickListener:CharacterClickListener)
     class ViewHolder private constructor(private val binding:ListItemCharacterLayoutBinding)
         :RecyclerView.ViewHolder(binding.root){
 
+
         fun bind(item:DomainCharacter, clickListener: CharacterClickListener){
             Log.d("TAG", "bind: Binding")
             binding.character=item

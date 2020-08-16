@@ -10,7 +10,6 @@ import com.grandefirano.rickandmortycharacterfinder.network.asDomainModel
 import retrofit2.HttpException
 import java.io.IOException
 import java.io.InvalidObjectException
-import java.lang.Exception
 
 private const val CHARACTER_STARTING_PAGE_INDEX = 1
 
@@ -20,41 +19,44 @@ class CharacterRemoteMediator(
     private val service: ApiService,
     private val characterDatabase: CharacterDatabase
 ) : RemoteMediator<Int, DomainCharacter>() {
-    override suspend fun load(
-        loadType: LoadType,
-        state: PagingState<Int, DomainCharacter>
-    ): MediatorResult {
-        Log.d("TAG", "load: database $characterDatabase")
-        Log.d("TAG", "load:state ${state.pages} ")
 
+
+    override suspend fun load(loadType: LoadType, state: PagingState<Int, DomainCharacter>): MediatorResult {
+
+
+        Log.d("TAG", "load: state pages ${state.pages}")
         val page = when (loadType) {
             LoadType.REFRESH -> {
-                Log.d("TAG", "load: REFRESH")
-                val remoteKeys=getRemoteKeyClosestToCurrentPosition(state)
-                Log.d("TAG", "load: remoteKeys $remoteKeys")
-                Log.d("TAG", "load: remoteKeys ${remoteKeys?.nextKey?.minus(1)}")
-                remoteKeys?.nextKey?.minus(1)?: CHARACTER_STARTING_PAGE_INDEX
+                val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
+                remoteKeys?.nextKey?.minus(1) ?: CHARACTER_STARTING_PAGE_INDEX
             }
             LoadType.PREPEND -> {
-//                Log.d("TAG", "load: PREPEND")
-//                val remoteKeys = getRemoteKeyForFirstItem(state)
-//
-//                remoteKeys?.prevKey ?: return MediatorResult.Success(
-//                    endOfPaginationReached = true
-//                )
-                1
-
+                val remoteKeys = getRemoteKeyForFirstItem(state)
+                if (remoteKeys == null) {
+                    // The LoadType is PREPEND so some data was loaded before,
+                    // so we should have been able to get remote keys
+                    // If the remoteKeys are null, then we're an invalid state and we have a bug
+                    }
+                // If the previous key is null, then we can't request more data
+                return MediatorResult.Success(endOfPaginationReached = true)
+                val prevKey = remoteKeys?.prevKey
+                if (prevKey == null) {
+                    return MediatorResult.Success(endOfPaginationReached = true)
+                }
+                remoteKeys.prevKey
             }
             LoadType.APPEND -> {
-                Log.d("TAG", "load: APPEND")
-                val remoteKeys = getRemoteKeyForLastItem(state)?:1
-//                if (remoteKeys?.nextKey == null)
-//                    return MediatorResult.Success(
-//                        endOfPaginationReached = true
-//                    )
-                1
+                val remoteKeys = getRemoteKeyForLastItem(state)
+                if (remoteKeys == null || remoteKeys.nextKey == null) {
+                    throw InvalidObjectException("Remote key should not be null for $loadType")
+                }
+                remoteKeys.nextKey
             }
+
         }
+
+
+
         try {
             Log.d("TAG", "load: TRY")
             val apiResponse = service.getListOfCharacters(
@@ -67,75 +69,42 @@ class CharacterRemoteMediator(
             Log.d("TAG", "load: characterS: $characters")
             val endOfPaginationReached = characters.isEmpty()
             characterDatabase.withTransaction {
-
+                // clear all tables in the database
                 if (loadType == LoadType.REFRESH) {
                     characterDatabase.remoteKeysDao().clearRemoteKeys()
                     characterDatabase.charactersDao().clearRepos()
-                    Log.d("TAG", "load: type REFRESH")
                 }
                 val prevKey = if (page == CHARACTER_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                Log.d("TAG", "load: prevkey $prevKey")
-                Log.d("TAG", "load: nextKEy $nextKey")
-
                 val keys = characters.map {
                     RemoteKeys(characterId = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
-                Log.d("TAG", "load: keys $keys")
                 characterDatabase.remoteKeysDao().insertAll(keys)
                 characterDatabase.charactersDao().insertAll(characters)
-                Log.d("TAG","TOOOO CHARACTER: ${characterDatabase.charactersDao().getCharacters()}")
-                Log.d("TAG", "TOWAZNE:${characterDatabase.remoteKeysDao().remoteKeysCharacterId(characters.lastIndex)} ")
-                Log.d("TAG", "lend of pagination $endOfPaginationReached ")
-
             }
-            return MediatorResult.Success(endOfPaginationReached)
+            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: IOException) {
-            Log.i("TAG", "Error: $exception")
-
             return MediatorResult.Error(exception)
         } catch (exception: HttpException) {
-            Log.i("TAG", "Error: $exception")
-
-            when(exception.code()){
-                404->MediatorResult.Success(true)
-            }
             return MediatorResult.Error(exception)
-        }catch (exception: Exception){
-            Log.i("TAG", "load: ${exception.cause} ${exception.localizedMessage}")
-            return MediatorResult.Error(exception)
-
         }
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, DomainCharacter>): RemoteKeys? {
-        Log.d("TAG", "getRemoteKeyForLastItem: ${state.pages} ")
-        Log.d("TAG", "getRemoteKeyForLastItem: ${state.pages.firstOrNull()} ")
 
-        return state.pages.lastOrNull()
-            ?.data?.lastOrNull()
+        return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { character ->
                 characterDatabase.remoteKeysDao().remoteKeysCharacterId(character.id)
-
             }
     }
 
     private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, DomainCharacter>): RemoteKeys? {
-        Log.d("TAG", "getRemoteKeyForFirstItem: ${state.pages} ")
-        Log.d("TAG", "getRemoteKeyForFirstItem: ${state.pages.firstOrNull()} ")
-
-        return state.firstItemOrNull()?.let {
-            characterDatabase.remoteKeysDao().remoteKeysCharacterId(it.id)
-        }
-
-        return state.pages.firstOrNull() { it.data.isNotEmpty() }
-            ?.data?.firstOrNull()
+        return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { character ->
                 characterDatabase.remoteKeysDao().remoteKeysCharacterId(character.id)
-
             }
-
     }
+
     private suspend fun getRemoteKeyClosestToCurrentPosition(
         state: PagingState<Int, DomainCharacter>
     ): RemoteKeys? {
@@ -145,4 +114,6 @@ class CharacterRemoteMediator(
             }
         }
     }
+
+
 }

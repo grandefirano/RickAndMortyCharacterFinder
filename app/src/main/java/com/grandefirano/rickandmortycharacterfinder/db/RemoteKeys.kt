@@ -15,7 +15,7 @@ interface RemoteKeysDao{
 }
 @Entity(tableName = "remote_keys")
 data class RemoteKeys (
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val characterId:Int,
     val prevKey:Int?,
     val nextKey:Int?
