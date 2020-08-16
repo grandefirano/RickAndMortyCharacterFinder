@@ -1,7 +1,6 @@
 package com.grandefirano.rickandmortycharacterfinder.details
 
 import android.graphics.Color
-import android.media.Image
 import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -9,14 +8,13 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.grandefirano.rickandmortycharacterfinder.GlideApp
 import com.grandefirano.rickandmortycharacterfinder.R
-import com.grandefirano.rickandmortycharacterfinder.data.Character
-import com.grandefirano.rickandmortycharacterfinder.data.Search
+import com.grandefirano.rickandmortycharacterfinder.data.DomainCharacter
 import com.grandefirano.rickandmortycharacterfinder.data.Search.GenderOption
 import com.grandefirano.rickandmortycharacterfinder.data.Search.StatusOption
 
 
 @BindingAdapter("profilePhoto")
-fun ImageView.setProfilePhoto(item: Character){
+fun ImageView.setProfilePhoto(item: DomainCharacter){
 
 
     val circularProgressDrawable = CircularProgressDrawable(rootView.context)
@@ -32,7 +30,7 @@ fun ImageView.setProfilePhoto(item: Character){
 }
 
 @BindingAdapter("genderIcon")
-fun ImageView.setGenderImage(item:Character){
+fun ImageView.setGenderImage(item:DomainCharacter){
 
     Log.d("TAG", "setGenderImage: ${item.gender}")
 
@@ -47,7 +45,7 @@ fun ImageView.setGenderImage(item:Character){
 }
 
 @BindingAdapter("statusIcon")
-fun ImageView.setStatusImage(item:Character){
+fun ImageView.setStatusImage(item:DomainCharacter){
 
     Log.d("TAG", "setGenderImage: ${item.status}")
     val icon=when(item.status){

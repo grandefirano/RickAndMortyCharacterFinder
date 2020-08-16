@@ -1,16 +1,12 @@
 package com.grandefirano.rickandmortycharacterfinder.list
 
-import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import com.grandefirano.rickandmortycharacterfinder.CoroutinesTestRule
-import com.grandefirano.rickandmortycharacterfinder.data.Character
+import com.grandefirano.rickandmortycharacterfinder.data.DomainCharacter
 import com.grandefirano.rickandmortycharacterfinder.data.RepositoryImpl
 import com.grandefirano.rickandmortycharacterfinder.data.Search
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.*
 import org.hamcrest.CoreMatchers.*
 import org.junit.After
@@ -19,7 +15,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -55,7 +50,7 @@ class ListOfCharactersViewModelTest {
     @Test
     fun navigateToCharacterDetails_passCharacterToLiveData_Equal() {
 
-        val character=mock(Character::class.java)
+        val character=mock(DomainCharacter::class.java)
        viewModel.onCharacterClicked(character)
         assertThat(viewModel.navigateToCharacterDetail.getOrAwaitValue(),`is`(equalTo(character)))
     }
@@ -63,8 +58,8 @@ class ListOfCharactersViewModelTest {
     fun navigateToCharacterDetails_passWrongCharacterToLiveData_notEqual() {
 
 
-        val character=mock(Character::class.java)
-        val character2=mock(Character::class.java)
+        val character=mock(DomainCharacter::class.java)
+        val character2=mock(DomainCharacter::class.java)
         viewModel.onCharacterClicked(character)
 
         assertThat(viewModel.navigateToCharacterDetail.getOrAwaitValue(),`is`(not(equalTo(character2))))

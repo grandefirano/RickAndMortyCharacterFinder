@@ -21,6 +21,6 @@
         tools:layout="@layout/fragment_details_before" >
         <argument
             android:name="character"
-            app:argType="com.grandefirano.rickandmortycharacterfinder.data.Character" />
+            app:argType="com.grandefirano.rickandmortycharacterfinder.data.DomainCharacter" />
     </fragment>
 </navigation>

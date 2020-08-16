@@ -7,24 +7,24 @@ import com.grandefirano.rickandmortycharacterfinder.R
 
 
 class Search{
-    var name:String?=null
+    var name:String=""
 
-    var gender:GenderOption?=null
+    var gender:GenderOption=GenderOption.ALL
 
-    var status:StatusOption?=null
+    var status:StatusOption=StatusOption.ALL
 
 
 
-   enum class GenderOption(val value:String?){
-       ALL(null),
+   enum class GenderOption(val value:String){
+       ALL(""),
        MALE("Male"),
        FEMALE("Female"),
        GENDERLESS("Genderless"),
        UNKNOWN("Unknown")
     }
 
-    enum class StatusOption(val value:String?){
-        ALL(null),
+    enum class StatusOption(val value:String){
+        ALL(""),
         ALIVE("Alive"),
         DEAD("Dead"),
         UNKNOWN("Unknown")

@@ -15,7 +15,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class CoroutineModule {
 
     @Provides
-    fun bindsCoroutineScope():CoroutineScope?{
+    fun providesCoroutineScope():CoroutineScope?{
         return null
     }
 

@@ -8,7 +8,7 @@
 
         <variable
             name="character"
-            type="com.grandefirano.rickandmortycharacterfinder.data.Character" />
+            type="com.grandefirano.rickandmortycharacterfinder.data.DomainCharacter" />
     </data>
 
 

@@ -203,7 +203,7 @@ class ListOfCharactersFragment : Fragment() {
         binding.spinnerGender.adapter = adapterSpinner
         binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                viewModel.onQueryGenderChanged(Search.GenderOption.ALL)
             }
 
             override fun onItemSelected(
@@ -231,7 +231,7 @@ class ListOfCharactersFragment : Fragment() {
         binding.spinnerStatus.adapter = adapterSpinner
         binding.spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                viewModel.onQueryStatusChanged(Search.StatusOption.ALL)
             }
 
             override fun onItemSelected(

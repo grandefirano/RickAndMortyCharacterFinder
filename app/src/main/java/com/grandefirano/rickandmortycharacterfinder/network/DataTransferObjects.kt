@@ -1,6 +1,6 @@
 package com.grandefirano.rickandmortycharacterfinder.network
 
-import com.grandefirano.rickandmortycharacterfinder.data.Character
+import com.grandefirano.rickandmortycharacterfinder.data.DomainCharacter
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +25,7 @@ data class NetworkCharacter(
     val imageUrl:String
 )
 
-suspend fun NetworkCharactersContainer.asDomainModel():List<Character>{
+suspend fun NetworkCharactersContainer.asDomainModel():List<DomainCharacter>{
     return withContext(Dispatchers.Default) {
         results.map {
             it.asDomainModel()
@@ -33,9 +33,9 @@ suspend fun NetworkCharactersContainer.asDomainModel():List<Character>{
     }
 }
 
-suspend fun NetworkCharacter.asDomainModel(): Character {
+suspend fun NetworkCharacter.asDomainModel(): DomainCharacter {
     return withContext(Dispatchers.Default) {
-        Character(
+        DomainCharacter(
             id = id,
             name = name,
             status = status,

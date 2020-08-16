@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IRepository{
 
-    fun getCharactersSearchResult(query:Search): Flow<PagingData<Character>>
+    fun getCharactersSearchResult(query:Search): Flow<PagingData<DomainCharacter>>
 }
