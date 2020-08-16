@@ -31,7 +31,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import java.lang.IllegalArgumentException
+import java.net.UnknownHostException
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
@@ -111,43 +114,56 @@ class ListOfCharactersFragment : Fragment() {
         return binding.root
     }
 
-    private fun initGridLayout(){
+    private fun initGridLayout() {
 
         binding.lifecycleOwner = this
 
         itemPerRow.observe(viewLifecycleOwner, Observer { itemPerRow ->
             Log.d(TAG, "onCreateView: itemprerov $itemPerRow")
             val manager = GridLayoutManager(context, itemPerRow).apply {
-                spanSizeLookup=object: GridLayoutManager.SpanSizeLookup() {
+                spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return if(position>=adapter.itemCount){
+                        return if (position >= adapter.itemCount) {
                             itemPerRow
-                        } else{
+                        } else {
                             1
                         }
                     }
 
                 }
             }
-            binding.characterList.adapter=adapter.run {
+            binding.characterList.adapter = adapter.run {
                 withLoadStateFooter(
                     footer = CharactersLoadStateAdapter { adapter.retry() }
                 )
             }
             adapter.apply {
                 addLoadStateListener { loadState ->
-                    binding.characterList.isVisible =
-                        loadState.source.refresh is LoadState.NotLoading
-                    binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                    binding.retryButton.isVisible = loadState.source.refresh is LoadState.Error
 
-                    val errorState = loadState.source.append as? LoadState.Error
-                        ?: loadState.source.prepend as? LoadState.Error
-                        ?: loadState.append as? LoadState.Error
-                        ?: loadState.prepend as? LoadState.Error
+
+                    val loadStateSource = loadState.source.refresh
+                    binding.characterList.isVisible =
+                        loadStateSource is LoadState.NotLoading
+                    binding.mainProgressBar.isVisible = loadStateSource is LoadState.Loading
+                    binding.mainRetryButton.isVisible = loadStateSource is LoadState.Error
+                    binding.errorTextView.isVisible = loadStateSource is LoadState.Error
+
+                    val errorState = loadState.source.refresh as? LoadState.Error
+                        ?:loadState.refresh as? LoadState.Error
                     errorState?.let {
-                        Toast.makeText(context, "$errorState", Toast.LENGTH_SHORT).show()
+                        val message = if (errorState.error is UnknownHostException) {
+                            "There is no connection to Word Wide Web"
+                        } else {
+                            "Can't load characters"
+                        }
+                        binding.errorTextView.text=message
+
                     }
+
+                   
+
+
+
                 }
             }
 
@@ -164,7 +180,6 @@ class ListOfCharactersFragment : Fragment() {
         })
 
     }
-
 
 
     private fun observeNavigationState() {
@@ -203,7 +218,7 @@ class ListOfCharactersFragment : Fragment() {
         binding.spinnerGender.adapter = adapterSpinner
         binding.spinnerGender.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                viewModel.onQueryGenderChanged(Search.GenderOption.ALL)
             }
 
             override fun onItemSelected(
@@ -231,7 +246,7 @@ class ListOfCharactersFragment : Fragment() {
         binding.spinnerStatus.adapter = adapterSpinner
         binding.spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+                viewModel.onQueryStatusChanged(Search.StatusOption.ALL)
             }
 
             override fun onItemSelected(

@@ -1,5 +1,6 @@
 package com.grandefirano.rickandmortycharacterfinder.list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -8,7 +9,7 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.grandefirano.rickandmortycharacterfinder.R
 import com.grandefirano.rickandmortycharacterfinder.databinding.ItemFooterCharactersLoadStateBinding
-import retrofit2.HttpException
+import java.io.IOException
 import java.net.UnknownHostException
 
 class CharactersLoadStateAdapter(private val retry:()->Unit)
@@ -28,7 +29,7 @@ class CharactersLoadStateAdapter(private val retry:()->Unit)
     ): RecyclerView.ViewHolder(binding.root) {
 
         init{
-            binding.retryButton.setOnClickListener { retry.invoke() }
+            binding.footerRetryButton.setOnClickListener { retry.invoke() }
         }
 
         fun bind(loadState:LoadState){
@@ -36,18 +37,19 @@ class CharactersLoadStateAdapter(private val retry:()->Unit)
 
 
                 val exception=loadState.error.cause
-                val message=if(exception is UnknownHostException){
+                Log.d("TAG", "bind: ")
+                val message=if(exception is IOException){
                    "There is no connection with World Wide Web"
                 }else{
                     "Error"
                 }
 
-                binding.errorMsg.text = message
+                binding.footerErrorTextView.text = message
 
             }
-                binding.progressBar.isVisible = loadState is LoadState.Loading
-                binding.retryButton.isVisible = loadState !is LoadState.Loading
-                binding.errorMsg.isVisible = loadState !is LoadState.Loading
+                binding.footerProgressBar.isVisible = loadState is LoadState.Loading
+                binding.footerRetryButton.isVisible = loadState !is LoadState.Loading
+                binding.footerErrorTextView.isVisible = loadState !is LoadState.Loading
 
         }
         companion object {

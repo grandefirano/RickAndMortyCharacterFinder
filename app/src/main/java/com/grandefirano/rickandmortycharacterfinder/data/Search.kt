@@ -9,9 +9,9 @@ import com.grandefirano.rickandmortycharacterfinder.R
 class Search{
     var name:String?=null
 
-    var gender:GenderOption?=null
+    var gender:GenderOption=GenderOption.ALL
 
-    var status:StatusOption?=null
+    var status:StatusOption=StatusOption.ALL
 
 
 

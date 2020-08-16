@@ -6,7 +6,7 @@ import com.grandefirano.rickandmortycharacterfinder.network.ApiService
 import com.grandefirano.rickandmortycharacterfinder.network.asDomainModel
 import retrofit2.HttpException
 import java.io.IOException
-import java.lang.Exception
+
 
 private const val CHARACTER_STARTING_PAGE_INDEX = 1
 
@@ -41,6 +41,7 @@ class CharacterPagingSource(
             Log.i("TAG", "load: $exception")
             when(exception.code()){
                 404->{
+
                     LoadResult.Page(
                         data= listOf(),
                         prevKey = null,
@@ -57,3 +58,4 @@ class CharacterPagingSource(
     }
 
 }
+
