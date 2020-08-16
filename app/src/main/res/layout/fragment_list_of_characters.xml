@@ -91,7 +91,7 @@
             app:layout_constraintBottom_toTopOf="@+id/mainProgressBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/word_wide_web" />
+            android:text="@string/world_wide_web" />
 
         <Button
             android:layout_marginTop="20dp"
