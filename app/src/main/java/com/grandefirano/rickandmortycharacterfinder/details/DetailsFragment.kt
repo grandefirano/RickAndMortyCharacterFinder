@@ -1,15 +1,15 @@
 package com.grandefirano.rickandmortycharacterfinder.details
 
-import android.os.Build
+
 import android.os.Bundle
-import android.util.Log
+
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.fragment.app.viewModels
+
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionManager
 import com.grandefirano.rickandmortycharacterfinder.R
@@ -20,8 +20,6 @@ import kotlinx.android.synthetic.main.fragment_details_before.*
 
 class DetailsFragment : Fragment() {
 
-
-    private val viewModel: DetailsViewModel by viewModels()
 
     private lateinit var binding: FragmentDetailsBeforeBinding
 
@@ -55,24 +53,18 @@ class DetailsFragment : Fragment() {
         constraint2.clone(context, R.layout.fragment_details_after)
 
         binding.portalImageView.setOnClickListener {
-            Log.d("TAG", "addAnimationOperations:CLICK ${Build.VERSION.SDK_INT}")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                TransitionManager.beginDelayedTransition(root)
-                if (!set) {
-                    constraint2.applyTo(root)
-                    set = !set
-                }
+            TransitionManager.beginDelayedTransition(root)
+            if (!set) {
+                constraint2.applyTo(root)
+                set = !set
             }
         }
 
         binding.photoDetailsImageView.setOnClickListener {
-            Log.d("TAG", "addAnimationOperations:CLICK ${Build.VERSION.SDK_INT}")
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                TransitionManager.beginDelayedTransition(root)
-                if (set) {
-                    constraint1.applyTo(root)
-                    set = !set
-                }
+            TransitionManager.beginDelayedTransition(root)
+            if (set) {
+                constraint1.applyTo(root)
+                set = !set
             }
         }
 

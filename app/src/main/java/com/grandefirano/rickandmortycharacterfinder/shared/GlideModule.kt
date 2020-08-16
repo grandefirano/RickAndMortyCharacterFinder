@@ -1,4 +1,4 @@
-package com.grandefirano.rickandmortycharacterfinder
+package com.grandefirano.rickandmortycharacterfinder.shared
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

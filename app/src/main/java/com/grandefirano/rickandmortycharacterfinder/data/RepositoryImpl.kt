@@ -4,10 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.grandefirano.rickandmortycharacterfinder.network.ApiService
-import com.grandefirano.rickandmortycharacterfinder.network.asDomainModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(private val apiSevice: ApiService) : IRepository {
@@ -17,27 +14,14 @@ class RepositoryImpl @Inject constructor(private val apiSevice: ApiService) : IR
         private const val NETWORK_PAGE_SIZE = 50
     }
 
-    override fun getCharactersSearchResult(query:Search): Flow<PagingData<Character>> {
+    override fun getCharactersSearchResult(query: Search): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = NETWORK_PAGE_SIZE,
                 enablePlaceholders = false
             ),
-            pagingSourceFactory = {CharacterPagingSource(apiSevice,query)}
+            pagingSourceFactory = { CharacterPagingSource(apiSevice, query) }
         ).flow
     }
 
-
-    suspend fun getCharacter(userId:Int): Character? {
-
-        return apiSevice.getCharacter(userId)?.asDomainModel()
-    }
-
-    suspend fun refreshList(){
-        withContext(Dispatchers.IO){
-            //Todo:get from rest and update Local SQL Database
-
-
-        }
-    }
 }

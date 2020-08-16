@@ -15,19 +15,20 @@ class CharacterPagingSource(
     private val service: ApiService,
     private val query: Search
 ) : PagingSource<Int, Character>() {
+
+    private val TAG = "CharacterPagingSource"
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Character> {
         val page = params.key ?: CHARACTER_STARTING_PAGE_INDEX
 
         return try {
-            Log.d("TAG", "load: 1")
             val response = service.getListOfCharacters(
                 name=query.name,
-                gender = query.gender?.value,
-                status = query.status?.value,
+                gender = query.gender.value,
+                status = query.status.value,
                 page=page
             )
 
-            val characters = response?.asDomainModel()
+            val characters = response.asDomainModel()
 
             LoadResult.Page(
                 data = characters,
@@ -35,10 +36,10 @@ class CharacterPagingSource(
                 nextKey = if(characters.isEmpty())null else page+1
             )
         }catch (exception:IOException){
-            Log.i("TAG", "load: $exception")
+            Log.i(TAG, "CharacterPagingSource exception: $exception")
             return LoadResult.Error(exception)
         }catch (exception:HttpException){
-            Log.i("TAG", "load: $exception")
+            Log.i(TAG, "CharacterPagingSource exception: $exception")
             when(exception.code()){
                 404->{
 
@@ -51,7 +52,7 @@ class CharacterPagingSource(
                 else-> return LoadResult.Error(exception)
             }
         }catch (exception:Exception){
-            Log.i("TAG", "load: $exception")
+            Log.i("TAG", "CharacterPagingSource exception: $exception")
             return LoadResult.Error(exception)
 
         }

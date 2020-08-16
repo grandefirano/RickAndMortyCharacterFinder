@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="smallMargin">3dp</dimen>
-
     <dimen name="marginMedium">10dp</dimen>
     <dimen name="marginStartDetails">30dp</dimen>
     <dimen name="textSizeDetails">18sp</dimen>

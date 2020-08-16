@@ -14,12 +14,6 @@ import com.grandefirano.rickandmortycharacterfinder.databinding.ListItemCharacte
 class CharactersListAdapter(private val clickListener:CharacterClickListener)
     : PagingDataAdapter<Character, CharactersListAdapter.ViewHolder>(CharacterDiffCallback()){
 
-    companion object{
-        const val TYPE_CHARACTER=1
-        const val TYPE_FOOTER=2
-    }
-
-
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
