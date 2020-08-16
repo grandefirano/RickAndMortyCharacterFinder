@@ -28,13 +28,14 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/sym_def_app_icon" />
+            app:srcCompat="@android:drawable/sym_def_app_icon"
+            android:contentDescription="@string/photo" />
 
         <TextView
             android:id="@+id/portalTextView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:text="MORE"
+            android:text="@string/more"
             android:textSize="70sp"
             android:textColor="#fff"
             android:shadowColor="@color/colorBackground"
@@ -84,13 +85,14 @@
             app:layout_constraintBottom_toTopOf="@+id/statusImageView"
             app:layout_constraintEnd_toStartOf="@+id/guidelineVertical"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/photoDetailsImageView"
+            android:contentDescription="@string/gender" />
         <TextView
             android:id="@+id/genderTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:text="Gender"
+            android:text="@string/gender_title"
             android:textColor="@color/colorText"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
 
@@ -117,14 +119,15 @@
             android:src="@drawable/ic_heart"
             app:layout_constraintBottom_toTopOf="@+id/bornPlaceImageView"
             app:layout_constraintTop_toBottomOf="@+id/genderImageView"
-            app:statusIcon="@{character}" />
+            app:statusIcon="@{character}"
+            android:contentDescription="@string/status" />
 
         <TextView
             android:id="@+id/statusTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:text="Alive or not?"
+            android:text="@string/status_title"
             android:textColor="@color/colorText"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/statusImageView" />
@@ -152,14 +155,14 @@
             android:src="@drawable/ic_bird_stork"
             app:layout_constraintBottom_toTopOf="@+id/presentPlaceImageView"
             app:layout_constraintTop_toBottomOf="@+id/statusImageView"
-            />
+            android:contentDescription="@string/origin" />
 
         <TextView
             android:id="@+id/bornPlaceTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:text="Origin Location"
+            android:text="@string/origin_location"
             android:textColor="@color/colorText"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
             app:layout_constraintTop_toTopOf="@+id/bornPlaceImageView" />
@@ -187,14 +190,15 @@
             android:src="@drawable/ic_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bornPlaceImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/bornPlaceImageView"
+            android:contentDescription="@string/present_place" />
 
         <TextView
             android:id="@+id/presentPlaceTitleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/marginMedium"
-            android:text="Present Location"
+            android:text="@string/present_place_title"
 
             android:textColor="@color/colorText"
             app:layout_constraintStart_toEndOf="@+id/guidelineVertical"
@@ -221,7 +225,8 @@
             android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/portal_image" />
+            android:src="@drawable/portal_image"
+            android:contentDescription="@string/portal" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineVertical"

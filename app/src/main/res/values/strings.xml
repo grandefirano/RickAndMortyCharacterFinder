@@ -1,6 +1,19 @@
 <resources>
     <string name="app_name">Character Finder</string>
     <string name="retry">Retry</string>
+    <string name="photo">photo</string>
+    <string name="more">MORE</string>
+    <string name="more_info">MORE INFO</string>
+    <string name="gender">gender</string>
+    <string name="gender_title">Gender</string>
+    <string name="status">status</string>
+    <string name="status_title">Alive or not?</string>
+    <string name="origin">born</string>
+    <string name="origin_location">Origin Location</string>
+    <string name="present_place">presentPlace</string>
+    <string name="present_place_title">Present Location</string>
+    <string name="portal">portal</string>
+    <string name="character_image">characterImage</string>
 
 
     <string-array name="gender_list_name">

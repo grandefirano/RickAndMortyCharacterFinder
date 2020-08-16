@@ -23,7 +23,8 @@
             imageUrl="@{character.imageUrl}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:src="@mipmap/ic_launcher_round" />
+            tools:src="@mipmap/ic_launcher_round"
+            android:contentDescription="@string/character_image" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,7 +37,8 @@
             android:autoSizeTextType="uniform"
             android:text="@{character.name}"
             android:textColor="@color/colorText"
-            tools:text="Rick Sanchez" />
+            tools:text="Rick Sanchez"
+            tools:targetApi="o" />
 
     </RelativeLayout>
 </layout>

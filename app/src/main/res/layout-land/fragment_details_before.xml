@@ -27,18 +27,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:profilePhoto="@{character}"
-            app:srcCompat="@drawable/rick_default" />
+            app:srcCompat="@drawable/rick_default"
+            android:contentDescription="@string/photo" />
 
 
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="8dp"
             android:background="@color/colorBackground"
             android:fontFamily="sans-serif-condensed-medium"
-
             android:padding="10dp"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"
@@ -47,7 +46,6 @@
             android:shadowDy="4"
             android:shadowRadius="1"
             android:text="@{character.name}"
-
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="30sp"
@@ -67,17 +65,16 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="@+id/genderTitleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView"
+            android:contentDescription="@string/gender" />
 
         <TextView
             android:id="@+id/genderTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-
             android:layout_marginEnd="8dp"
-
-            android:text="Gender"
+            android:text="@string/gender_title"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
@@ -94,9 +91,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:text="@{character.gender}"
-
             android:textAlignment="center"
-
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
             app:layout_constraintBottom_toTopOf="@+id/statusImageView"
@@ -116,16 +111,16 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/statusTitleTextView"
             app:layout_constraintTop_toBottomOf="@+id/genderTextView"
-            app:statusIcon="@{character}" />
+            app:statusIcon="@{character}"
+            android:contentDescription="@string/status" />
 
         <TextView
             android:id="@+id/statusTitleTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-
             android:layout_marginEnd="8dp"
-            android:text="Alive or not?"
+            android:text="@string/status_title"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
@@ -142,7 +137,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:text="@{character.status}"
-
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
@@ -157,13 +151,13 @@
             android:id="@+id/bornPlaceImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-
             android:src="@drawable/ic_bird_stork"
             app:layout_constraintBottom_toBottomOf="@+id/genderImageView"
             app:layout_constraintEnd_toEndOf="@+id/bornPlaceTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/bornPlaceTitleTextView"
             app:layout_constraintTop_toTopOf="@+id/genderImageView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:contentDescription="@string/origin" />
 
         <TextView
             android:id="@+id/bornPlaceTitleTextView"
@@ -171,7 +165,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
-            android:text="Origin Location"
+            android:text="@string/origin_location"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
@@ -190,24 +184,24 @@
             android:text="@{character.originLocation}"
             android:textColor="@color/colorText"
             android:textAlignment="center"
-
             app:layout_constraintBottom_toTopOf="@+id/presentPlaceImageView"
             app:layout_constraintEnd_toEndOf="@+id/bornPlaceTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/bornPlaceTitleTextView"
             app:layout_constraintTop_toTopOf="@+id/genderTextView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:targetApi="o" />
 
         <ImageView
             android:id="@+id/presentPlaceImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-
             android:src="@drawable/ic_location"
             app:layout_constraintBottom_toBottomOf="@+id/statusImageView"
             app:layout_constraintEnd_toEndOf="@+id/presentPlaceTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/presentPlaceTitleTextView"
             app:layout_constraintTop_toTopOf="@+id/statusImageView"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            android:contentDescription="@string/present_place" />
 
 
         <TextView
@@ -215,9 +209,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-
             android:layout_marginEnd="8dp"
-            android:text="Present Location"
+            android:text="@string/present_place_title"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="@dimen/textSizeDetails"
@@ -239,7 +232,8 @@
             app:layout_constraintEnd_toEndOf="@+id/presentPlaceTitleTextView"
             app:layout_constraintStart_toStartOf="@+id/presentPlaceTitleTextView"
             app:layout_constraintTop_toTopOf="@+id/statusTextView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:targetApi="o" />
 
         <ImageView
             android:id="@+id/portalImageView"
@@ -249,13 +243,13 @@
             android:layout_marginEnd="7dp"
             android:layout_marginBottom="@dimen/marginMedium"
             android:src="@drawable/portal_image"
-
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/bornPlaceImageView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/genderImageView"
-            app:layout_constraintTop_toBottomOf="@+id/portalTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/portalTextView"
+            android:contentDescription="@string/portal" />
 
         <TextView
             android:id="@+id/portalTextView"
@@ -266,7 +260,7 @@
             android:gravity="center"
             android:shadowColor="@color/colorBackground"
             android:shadowRadius="10"
-            android:text="More Info"
+            android:text="@string/more_info"
             android:textAlignment="center"
             android:textColor="@color/colorAccent"
             android:textSize="40sp"
