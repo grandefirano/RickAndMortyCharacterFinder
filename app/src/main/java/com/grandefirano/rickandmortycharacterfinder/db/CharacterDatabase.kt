@@ -6,13 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [Character::class],
+    entities = [Character::class,RemoteKeys::class],
     version = 1,
     exportSchema = false
 )
 abstract class CharacterDatabase:RoomDatabase() {
 
     abstract fun charactersDao():CharacterDao
+    abstract fun remoteKeysDao():RemoteKeysDao
 
     companion object {
 
